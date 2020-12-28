@@ -4,6 +4,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] Bullet playerBullet;
+    [SerializeField] GameObject MovingStars;
 
     void Start()
     {
