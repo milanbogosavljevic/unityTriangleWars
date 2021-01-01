@@ -2,6 +2,7 @@
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] GameController GameController;
     [SerializeField] private float _bulletSpeed = 10f;
     [SerializeField] private Player Player;
     //[SerializeField] private GameController _gameController;
@@ -44,6 +45,7 @@ public class Bullet : MonoBehaviour
         {
             StopMoving();
             collision.gameObject.GetComponent<Enemy>().EnemyIsHit();
+            GameController.PlayerHitsEnemy();// OVDE TREBA DA SE POSALJE KOG JE NEPRIJATELJA POGODIO DA BI ZNAO GC KOLIKO DA POMERI GHOST LINE
         }
     }
 
