@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
-    //[SerializeField] private GameController _gameController;
-    //[SerializeField] private float _moveForce = 0f;
+    [SerializeField] private TextMeshProUGUI AmmoText;
+    [SerializeField] Bullet PlayerBullet;
+
     private bool _moveLeft = false;
     private bool _moveRight = false;
     private float _maxLeft;
     private float _maxRight;
+    private int _ammo;
 
-    //private Rigidbody2D _rb;
-    // Start is called before the first frame update
     void Start()
     {
         _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
@@ -20,11 +21,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        //_rb = GetComponent<Rigidbody2D>();
         _moveSpeed = 3f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         MovePlayer();
@@ -48,6 +47,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void UpdateAmmoText()
+    {
+        AmmoText.text = _ammo.ToString();
+    }
+
     public void StartMoving(string direction)
     {
         if(direction == "left")
@@ -69,6 +73,24 @@ public class Player : MonoBehaviour
     {
         Debug.Log("player is hit");
     }
+
+    public void SetAmmo(int ammo)
+    {
+        _ammo = ammo;
+        UpdateAmmoText();
+    }
+
+    public void DecreaseAmmo()
+    {
+        _ammo--;
+        UpdateAmmoText();
+    }
+
+    public bool PlayerCanFire()
+    {
+        return _ammo > 0 && !PlayerBullet.isActiveAndEnabled;
+    }
+
 
     /*    private void FixedUpdate()
     {

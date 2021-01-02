@@ -44,8 +44,9 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             StopMoving();
-            collision.gameObject.GetComponent<Enemy>().EnemyIsHit();
-            GameController.PlayerHitsEnemy();// OVDE TREBA DA SE POSALJE KOG JE NEPRIJATELJA POGODIO DA BI ZNAO GC KOLIKO DA POMERI GHOST LINE
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            enemy.EnemyIsHit();
+            GameController.PlayerHitsEnemy(enemy.GetEnemyLevel());
         }
     }
 

@@ -5,7 +5,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private bool _cahShoot;
     [SerializeField] private float _shootingInterval;
+    [SerializeField] private int _enemyLevel;
     [SerializeField] EnemyBullet EnemyBullet;
+
     private bool _moveLeft = false;
     private bool _moveRight = false;
     private float _maxLeft;
@@ -91,5 +93,10 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
         StopMoving();
         ResetPosition();
+    }
+
+    public int GetEnemyLevel()
+    {
+        return _enemyLevel;
     }
 }

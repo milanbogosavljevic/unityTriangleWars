@@ -1,32 +1,51 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] Player player;
-    [SerializeField] Bullet playerBullet;
+    [SerializeField] Player Player;
+    [SerializeField] Bullet PlayerBullet;
     [SerializeField] LineController PlayerLine;
     [SerializeField] LineController PlayerGhostLine;
     [SerializeField] LineController EnemyLine;
+    [SerializeField] private TextMeshProUGUI ScoreText;
+
+    private float _ghostLineMovingMultiplier;
+    private int _scoreMultiplier;
+    private int _score;
 
     void Start()
     {
+        _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
+        _scoreMultiplier = 50;
+        _score = 0;
         EnemyLine.MoveLine(true);
-        PlayerLine.MoveLine(true);
+        Player.SetAmmo(10);
+    }
+
+    private void UpdateScore(int enemyLevel)
+    {
+        _score += enemyLevel * _scoreMultiplier;
+        ScoreText.text = _score.ToString();
     }
 
     public void MovePlayer(string direction)
     {
-        player.StartMoving(direction);
+        Player.StartMoving(direction);
     }
 
     public void StopPlayer()
     {
-        player.StopMoving();
+        Player.StopMoving();
     }
 
     public void PlayerFired()
     {
-        playerBullet.StartMoving();
+        if (Player.PlayerCanFire())
+        {
+            PlayerBullet.StartMoving();
+            Player.DecreaseAmmo();
+        }
     }
 
     public void LineFinished(string lineName)
@@ -36,20 +55,19 @@ public class GameController : MonoBehaviour
         EnemyLine.MoveLine(false);
     }
 
-    public void PlayerHitsEnemy()
+    public void PlayerHitsEnemy(int enemyLevel)
     {
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
-        currentGhostPosition -= 1f;
+        currentGhostPosition -= (_ghostLineMovingMultiplier * enemyLevel);
         PlayerGhostLine.transform.position = new Vector3(currentGhostPosition, ghostPosition.y, ghostPosition.z);
         PlayerLine.MoveLine(true);
+        UpdateScore(enemyLevel);
     }
 }
 /*
  TODO
-    MORA DA POSTOJI BROJ KOJI CE SE SETOVATI NA POCETKU I KOJI CE ZAVISITI OD SIRINE EKRANA
-    I ONDA TAJ BROJ DA SE MNOZI SA BROJEM KOJI DOBIJE PlayerHitsEnemy A KOJI CE ZAVISITI OD
-    TOGA KOJI JE ENEMY POGODJEN.
+    
 
     
  */
