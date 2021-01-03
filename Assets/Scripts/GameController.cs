@@ -64,6 +64,18 @@ public class GameController : MonoBehaviour
         PlayerLine.MoveLine(true);
         UpdateScore(enemyLevel);
     }
+
+    public void EnemyHitsPlayer(int enemyLevel)
+    {
+        Vector3 playerLinePosition = PlayerLine.transform.position;
+        float linePositionX = playerLinePosition.x;
+        linePositionX += (_ghostLineMovingMultiplier * enemyLevel);
+        PlayerLine.transform.position = new Vector3(linePositionX, playerLinePosition.y, playerLinePosition.z);
+        PlayerGhostLine.transform.position = new Vector3(linePositionX, playerLinePosition.y, playerLinePosition.z);
+
+        PlayerLine.CheckIfLineIsOverMax();
+        PlayerGhostLine.CheckIfLineIsOverMax();
+    }
 }
 /*
  TODO

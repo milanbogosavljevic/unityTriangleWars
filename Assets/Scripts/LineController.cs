@@ -59,4 +59,17 @@ public class LineController : MonoBehaviour
     {
         _moveLine = move;
     }
+
+    public void ResetLinePosition()
+    {
+        transform.position = new Vector3(_maxRight, transform.position.y, transform.position.z);
+    }
+
+    public void CheckIfLineIsOverMax()
+    {
+        if(transform.position.x > _maxRight)
+        {
+            ResetLinePosition();
+        }
+    }
 }

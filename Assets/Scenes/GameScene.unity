@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 452437846}
     - target: {fileID: 8314353231920878368, guid: c0a5a29c7f9581d44bb04b429a35cefc, type: 3}
       propertyPath: _bulletSpeed
-      value: 15
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8314353231920878369, guid: c0a5a29c7f9581d44bb04b429a35cefc, type: 3}
       propertyPath: m_Name
@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 137.5, y: 113.3}
+  m_AnchoredPosition: {x: 137.5, y: 113}
   m_SizeDelta: {x: 309.0023, y: 170.61171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &415908938
@@ -925,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cda01f6b2a3d9142b7ea26866a8f554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameController: {fileID: 1156092372}
   _moveSpeed: 1
   AmmoText: {fileID: 415908938}
   PlayerBullet: {fileID: 1239742041}
@@ -2182,6 +2183,10 @@ PrefabInstance:
       propertyPath: Enemy
       value: 
       objectReference: {fileID: 532412933}
+    - target: {fileID: 8314353231920878368, guid: c0a5a29c7f9581d44bb04b429a35cefc, type: 3}
+      propertyPath: _bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8314353231920878369, guid: c0a5a29c7f9581d44bb04b429a35cefc, type: 3}
       propertyPath: m_Name
       value: EnemyBullet

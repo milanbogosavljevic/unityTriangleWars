@@ -3,6 +3,7 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameController GameController;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private TextMeshProUGUI AmmoText;
     [SerializeField] Bullet PlayerBullet;
@@ -69,9 +70,9 @@ public class Player : MonoBehaviour
         _moveLeft = _moveRight = false;
     }
 
-    public void PlayerIsHit()
+    public void PlayerIsHit(int enemyLevel)
     {
-        Debug.Log("player is hit");
+        GameController.EnemyHitsPlayer(enemyLevel);
     }
 
     public void SetAmmo(int ammo)
