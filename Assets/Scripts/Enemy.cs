@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _shootingInterval;
     [SerializeField] private int _enemyLevel;
     [SerializeField] EnemyBullet EnemyBullet;
+    //[SerializeField] private GameObject _explosion;
+
+    [SerializeField] ParticleSystem _explosion;
 
     private bool _moveLeft = false;
     private bool _moveRight = false;
@@ -90,6 +93,9 @@ public class Enemy : MonoBehaviour
 
     public void EnemyIsHit()
     {
+        //Instantiate(_explosion, transform.position, Quaternion.identity);
+        _explosion.transform.position = transform.position;
+        _explosion.Play();
         gameObject.SetActive(false);
         StopMoving();
         ResetPosition();

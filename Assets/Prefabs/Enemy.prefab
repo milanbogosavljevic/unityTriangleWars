@@ -160,4 +160,6 @@ MonoBehaviour:
   _moveSpeed: 1
   _cahShoot: 1
   _shootingInterval: 3
+  _enemyLevel: 1
   EnemyBullet: {fileID: 0}
+  _explosion: {fileID: 0}

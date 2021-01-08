@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
                 transform.position += Time.deltaTime * _moveSpeed * Vector3.left;
             }
         }
-        else if (_moveRight)
+        if (_moveRight)
         {
             if (transform.position.x < _maxRight)
             {
@@ -65,9 +65,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void StopMoving()
+    public void StopMoving(string direction)
     {
-        _moveLeft = _moveRight = false;
+        //_moveLeft = _moveRight = false;
+        if (direction == "left")
+        {
+            _moveLeft = false;
+        }
+        else
+        {
+            _moveRight = false;
+        }
     }
 
     public void PlayerIsHit(int enemyLevel)

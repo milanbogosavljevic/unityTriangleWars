@@ -34,9 +34,9 @@ public class GameController : MonoBehaviour
         Player.StartMoving(direction);
     }
 
-    public void StopPlayer()
+    public void StopPlayer(string direction)
     {
-        Player.StopMoving();
+        Player.StopMoving(direction);
     }
 
     public void PlayerFired()
@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    
-
+    KORIGOVATI EXPLODE ANIMACIJU
+    NAMESTITI DA SE KORISTE RAZLICITE SLIKE ZA ANIMACIJU
     
  */
