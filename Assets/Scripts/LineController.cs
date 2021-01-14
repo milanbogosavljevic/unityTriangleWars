@@ -72,4 +72,9 @@ public class LineController : MonoBehaviour
             ResetLinePosition();
         }
     }
+
+    public void SetLineMoveSpeed(float speed)
+    {
+        MoveSpeed = speed;
+    }
 }

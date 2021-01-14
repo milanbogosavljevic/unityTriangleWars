@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1379201053065624680}
   - component: {fileID: 1379201053065624681}
   - component: {fileID: 1379201053065624686}
+  - component: {fileID: -7091094714600947737}
   m_Layer: 0
   m_Name: EnemyExplosion
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379201053065624687}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.06, y: 0.82, z: 0}
+  m_LocalPosition: {x: 1.4004959, y: 2.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,8 +42,8 @@ ParticleSystem:
   m_GameObject: {fileID: 1379201053065624687}
   serializedVersion: 6
   lengthInSec: 1
-  simulationSpeed: 3
-  stopAction: 0
+  simulationSpeed: 4
+  stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -284,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4870,3 +4871,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-7091094714600947737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379201053065624687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99435fff93644749b3d0e131f2757df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: {fileID: 21300000, guid: 9664ebe9f5157844ca6ddf3479c730f4, type: 3}

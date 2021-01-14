@@ -100,16 +100,12 @@ public class Player : MonoBehaviour
         return _ammo > 0 && !PlayerBullet.isActiveAndEnabled;
     }
 
-
-    /*    private void FixedUpdate()
+    public void Fire()
     {
-        if (_moveLeft)
+        if (PlayerCanFire())
         {
-            _rb.AddForce(_moveForce * Vector3.left);
+            PlayerBullet.StartMoving();
+            DecreaseAmmo();
         }
-        else if (_moveRight)
-        {
-            _rb.AddForce(_moveForce * Vector3.right);
-        }
-    }*/
+    }
 }

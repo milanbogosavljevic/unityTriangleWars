@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    [SerializeField] private float _bulletSpeed = 10f;
+    //[SerializeField] private float _bulletSpeed = 10f;
     [SerializeField] private Enemy Enemy;
     //[SerializeField] private GameController _gameController;
 
+    private float _bulletSpeed;
     private bool _moveBullet = false;
     private float _maxDown;
     // Start is called before the first frame update
     void Start()
     {
         _maxDown = Camera.main.orthographicSize * -1f;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,6 +41,16 @@ public class EnemyBullet : MonoBehaviour
             StopMoving();
             collision.gameObject.GetComponent<Player>().PlayerIsHit(Enemy.GetEnemyLevel());
         }
+    }
+
+    public void SetEnemy(Enemy enemy)
+    {
+        Enemy = enemy;
+    }
+
+    public void SetBulletSpeed(float speed)
+    {
+        _bulletSpeed = speed;
     }
 
     public void StartMoving()

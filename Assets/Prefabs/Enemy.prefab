@@ -157,9 +157,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454d352e4348d9b40a034dbf129ca4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 1
-  _cahShoot: 1
-  _shootingInterval: 3
-  _enemyLevel: 1
-  EnemyBullet: {fileID: 0}
-  _explosion: {fileID: 0}
+  EnemyBulletPrefab: {fileID: 8314353231920878368, guid: c0a5a29c7f9581d44bb04b429a35cefc, type: 3}
+  ExplosionPrefab: {fileID: 1379201053065624681, guid: dad2977527764554ab50f70b9714d7e7, type: 3}

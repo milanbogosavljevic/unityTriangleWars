@@ -2,24 +2,43 @@
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private bool _cahShoot;
-    [SerializeField] private float _shootingInterval;
-    [SerializeField] private int _enemyLevel;
-    [SerializeField] EnemyBullet EnemyBullet;
-    //[SerializeField] private GameObject _explosion;
+    [SerializeField] EnemyBullet EnemyBulletPrefab;
+    [SerializeField] ParticleSystem ExplosionPrefab;
 
-    [SerializeField] ParticleSystem _explosion;
-
-    private bool _moveLeft = false;
-    private bool _moveRight = false;
+    private float _moveSpeed;
     private float _maxLeft;
     private float _maxRight;
+    private float _shootingInterval;
+    private bool _cahShoot;
+    private bool _moveLeft = false;
+    private bool _moveRight = false;
+    private int _enemyLevel;
+    private EnemyBullet _bullet;
+    private ParticleSystem _explosion;
 
-    void Start()
+    void Awake()
     {
         _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
         _maxLeft = _maxRight * -1f;
+
+        _bullet = Instantiate(EnemyBulletPrefab);
+        _bullet.SetEnemy(this);
+
+        _explosion = Instantiate(ExplosionPrefab);
+        _explosion.gameObject.SetActive(false);
+    }
+
+    public void SetEnemyProperties(Vector2 position, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin)
+    {
+        transform.position = position;
+        _moveSpeed = moveSpeed;
+        _cahShoot = canShoot;
+        _shootingInterval = shootingInterval;
+        _enemyLevel = enemyLevel;
+
+        _bullet.SetBulletSpeed(bulletSpeed);
+
+        SetSkin(skin);
         StartMoving("right");
 
         if (_cahShoot)
@@ -81,7 +100,7 @@ public class Enemy : MonoBehaviour
 
     void FireBullet()
     {
-        EnemyBullet.StartMoving();
+        _bullet.StartMoving();
     }
 
     public void StartMoving(string direction)
@@ -91,10 +110,19 @@ public class Enemy : MonoBehaviour
         _moveRight = !_moveLeft;
     }
 
+    public void SetSkin(Sprite skin)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = skin;
+    }
+
     public void EnemyIsHit()
     {
-        //Instantiate(_explosion, transform.position, Quaternion.identity);
+        //_explosion.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+        //var textureSheetAnimation = _explosion.textureSheetAnimation;
+        //textureSheetAnimation.AddSprite(test);
+        _explosion.gameObject.GetComponent<ExplosionController>().ChangeParticleSkin(gameObject.GetComponent<SpriteRenderer>().sprite);
         _explosion.transform.position = transform.position;
+        _explosion.gameObject.SetActive(true);
         _explosion.Play();
         gameObject.SetActive(false);
         StopMoving();

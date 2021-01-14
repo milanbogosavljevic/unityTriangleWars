@@ -3,8 +3,9 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] LevelsScriptableObj[] LevelsInfo;
     [SerializeField] Player Player;
-    [SerializeField] Bullet PlayerBullet;
+    [SerializeField] Enemy EnemyPrefab;
     [SerializeField] LineController PlayerLine;
     [SerializeField] LineController PlayerGhostLine;
     [SerializeField] LineController EnemyLine;
@@ -13,14 +14,46 @@ public class GameController : MonoBehaviour
     private float _ghostLineMovingMultiplier;
     private int _scoreMultiplier;
     private int _score;
+    private int _currentLevel;
 
     void Start()
     {
+        _currentLevel = 1;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _scoreMultiplier = 50;
         _score = 0;
+        SetSceneForCurrentLevel();
+    }
+
+    private void SetSceneForCurrentLevel()
+    {
+        LevelsScriptableObj currentLevelInfo = LevelsInfo[_currentLevel];
+
+        int numOfEnemies = currentLevelInfo.GetNumberOfEnemies();
+        float enemyLineMoveSpeed = currentLevelInfo.GetEnemyLineMoveSpeed();
+        int playerAmmo = currentLevelInfo.GetPlayerAmmo();
+
+        Vector2[] positions = currentLevelInfo.GetEnemiesPosition();
+        float[] moveSpeeds = currentLevelInfo.GetEnemiesMoveSpeed();
+        bool[] canShoots = currentLevelInfo.GetEnemiesCanShoot();
+        int[] shootingIntervals = currentLevelInfo.GetEnemiesShootingInterval();
+        int[] levels = currentLevelInfo.GetEnemiesLevel();
+        float[] bulletsSpeed = currentLevelInfo.GetEnemiesBulletSpeed();
+        Sprite[] skins = currentLevelInfo.GetEnemiesSkin();
+        
+        for (int i = 0; i < numOfEnemies; i++)
+        {
+            Enemy enemy = Instantiate(EnemyPrefab);
+            enemy.SetEnemyProperties(positions[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i]);
+        }
+
+        Player.SetAmmo(playerAmmo);
+
+        EnemyLine.SetLineMoveSpeed(enemyLineMoveSpeed);
+        EnemyLine.ResetLinePosition();
+        PlayerGhostLine.ResetLinePosition();
+        PlayerLine.ResetLinePosition();
         EnemyLine.MoveLine(true);
-        Player.SetAmmo(10);
     }
 
     private void UpdateScore(int enemyLevel)
@@ -41,11 +74,7 @@ public class GameController : MonoBehaviour
 
     public void PlayerFired()
     {
-        if (Player.PlayerCanFire())
-        {
-            PlayerBullet.StartMoving();
-            Player.DecreaseAmmo();
-        }
+        Player.Fire();
     }
 
     public void LineFinished(string lineName)
@@ -79,7 +108,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    KORIGOVATI EXPLODE ANIMACIJU
-    NAMESTITI DA SE KORISTE RAZLICITE SLIKE ZA ANIMACIJU
     
  */
