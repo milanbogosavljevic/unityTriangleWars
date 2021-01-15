@@ -16,7 +16,7 @@ MonoBehaviour:
   enemyLineMoveSpeed: 0.15
   playerAmmo: 10
   enemiesPositions:
-  - {x: -6, y: 3.6}
+  - {x: 4, y: 3.6}
   - {x: -5, y: 2.7}
   enemiesMoveSpeed:
   - 1.5
@@ -30,3 +30,6 @@ MonoBehaviour:
   enemiesSkin:
   - {fileID: 21300000, guid: 9664ebe9f5157844ca6ddf3479c730f4, type: 3}
   - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  startingMoveDirection:
+  - right
+  - left

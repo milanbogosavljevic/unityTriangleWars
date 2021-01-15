@@ -13,6 +13,7 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private int[] enemiesLevel;
     [SerializeField] private float[] enemiesBulletSpeed;
     [SerializeField] private Sprite[] enemiesSkin;
+    [SerializeField] private string[] startingMoveDirection;
 
     public int GetNumberOfEnemies()
     {
@@ -51,6 +52,11 @@ public class LevelsScriptableObj : ScriptableObject
     public Sprite[] GetEnemiesSkin()
     {
         return enemiesSkin;
+    }
+
+    public string[] GetEnemiesStartingDirection()
+    {
+        return startingMoveDirection;
     }
 
     public float GetEnemyLineMoveSpeed()

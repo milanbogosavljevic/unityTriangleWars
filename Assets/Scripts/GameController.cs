@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        _currentLevel = 1;
+        _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _scoreMultiplier = 50;
         _score = 0;
@@ -40,11 +40,12 @@ public class GameController : MonoBehaviour
         int[] levels = currentLevelInfo.GetEnemiesLevel();
         float[] bulletsSpeed = currentLevelInfo.GetEnemiesBulletSpeed();
         Sprite[] skins = currentLevelInfo.GetEnemiesSkin();
+        string[] startingMoveDirections = currentLevelInfo.GetEnemiesStartingDirection();
         
         for (int i = 0; i < numOfEnemies; i++)
         {
             Enemy enemy = Instantiate(EnemyPrefab);
-            enemy.SetEnemyProperties(positions[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i]);
+            enemy.SetEnemyProperties(positions[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i], startingMoveDirections[i]);
         }
 
         Player.SetAmmo(playerAmmo);
@@ -60,6 +61,39 @@ public class GameController : MonoBehaviour
     {
         _score += enemyLevel * _scoreMultiplier;
         ScoreText.text = _score.ToString();
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over");
+    }
+
+    private void LevelPassed()
+    {
+        ClearEnemies();
+        _currentLevel++;
+        SetSceneForCurrentLevel();
+    }
+
+    private void ClearEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach(GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("enemyBullet");
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
+        }
+
+        GameObject[] explosions = GameObject.FindGameObjectsWithTag("enemyExplosion");
+        foreach (GameObject explosion in explosions)
+        {
+            Destroy(explosion);
+        }
     }
 
     public void MovePlayer(string direction)
@@ -79,9 +113,16 @@ public class GameController : MonoBehaviour
 
     public void LineFinished(string lineName)
     {
-        Debug.Log(lineName + " won");
         PlayerLine.MoveLine(false);
         EnemyLine.MoveLine(false);
+        if(lineName == "playerLine")
+        {
+            LevelPassed();
+        }
+        else
+        {
+            GameOver();
+        }
     }
 
     public void PlayerHitsEnemy(int enemyLevel)

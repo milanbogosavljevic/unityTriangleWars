@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
         _explosion.gameObject.SetActive(false);
     }
 
-    public void SetEnemyProperties(Vector2 position, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin)
+    public void SetEnemyProperties(Vector2 position, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin, string moveDirection)
     {
         transform.position = position;
         _moveSpeed = moveSpeed;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         _bullet.SetBulletSpeed(bulletSpeed);
 
         SetSkin(skin);
-        StartMoving("right");
+        StartMoving(moveDirection);
 
         if (_cahShoot)
         {
@@ -117,9 +117,6 @@ public class Enemy : MonoBehaviour
 
     public void EnemyIsHit()
     {
-        //_explosion.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        //var textureSheetAnimation = _explosion.textureSheetAnimation;
-        //textureSheetAnimation.AddSprite(test);
         _explosion.gameObject.GetComponent<ExplosionController>().ChangeParticleSkin(gameObject.GetComponent<SpriteRenderer>().sprite);
         _explosion.transform.position = transform.position;
         _explosion.gameObject.SetActive(true);

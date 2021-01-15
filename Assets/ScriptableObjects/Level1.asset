@@ -21,8 +21,10 @@ MonoBehaviour:
   - 1
   enemiesCanShoot: 01
   enemiesShootingInterval: 03000000
-  enemiesLevel: 01000000
+  enemiesLevel: 03000000
   enemiesBulletSpeed:
   - 5
   enemiesSkin:
   - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  startingMoveDirection:
+  - right
