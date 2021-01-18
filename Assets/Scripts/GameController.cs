@@ -15,14 +15,17 @@ public class GameController : MonoBehaviour
     private int _scoreMultiplier;
     private int _score;
     private int _currentLevel;
+    private CameraSizeController _cameraController;
 
     void Start()
     {
+        _cameraController = Camera.main.GetComponent<CameraSizeController>();
         _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _scoreMultiplier = 50;
         _score = 0;
         SetSceneForCurrentLevel();
+
     }
 
     private void SetSceneForCurrentLevel()
@@ -127,6 +130,7 @@ public class GameController : MonoBehaviour
 
     public void PlayerHitsEnemy(int enemyLevel)
     {
+        _cameraController.ShakeCamera();
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
         currentGhostPosition -= (_ghostLineMovingMultiplier * enemyLevel);
