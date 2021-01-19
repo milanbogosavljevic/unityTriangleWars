@@ -18,8 +18,8 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
-        _maxLeft = _maxRight * -1f;
+        _maxRight = GameBoundaries.RightBoundary;
+        _maxLeft = GameBoundaries.LeftBoundary;
 
         _bullet = Instantiate(EnemyBulletPrefab);
         _bullet.SetEnemy(this);
@@ -28,9 +28,11 @@ public class Enemy : MonoBehaviour
         _explosion.gameObject.SetActive(false);
     }
 
-    public void SetEnemyProperties(Vector2 position, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin, string moveDirection)
+    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin, string moveDirection)
     {
-        transform.position = position;
+        float x = moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
+        float y = GameBoundaries.UpBoundary - yPositionFromTop;
+        transform.position = new Vector2(x,y);
         _moveSpeed = moveSpeed;
         _cahShoot = canShoot;
         _shootingInterval = shootingInterval;

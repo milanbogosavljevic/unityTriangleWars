@@ -15,9 +15,9 @@ MonoBehaviour:
   numberOfEnemies: 2
   enemyLineMoveSpeed: 0.15
   playerAmmo: 10
-  enemiesPositions:
-  - {x: 4, y: 3.6}
-  - {x: -5, y: 2.7}
+  enemiesYPositionFromTop:
+  - 1.5
+  - 2.8
   enemiesMoveSpeed:
   - 1.5
   - 1

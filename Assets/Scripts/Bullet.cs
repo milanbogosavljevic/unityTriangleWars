@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        _maxUp = Camera.main.orthographicSize;
+        _maxUp = GameBoundaries.UpBoundary;
     }
 
     void Update()

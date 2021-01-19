@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
-        _maxLeft = _maxRight * -1f;
+        _maxRight = GameBoundaries.RightBoundary;
+        _maxLeft = GameBoundaries.LeftBoundary;
     }
 
     private void Awake()

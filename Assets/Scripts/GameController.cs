@@ -12,11 +12,10 @@ public class GameController : MonoBehaviour
     [SerializeField] TextMeshProUGUI ScoreText;
     [SerializeField] TextMeshProUGUI PointsWon;
 
-    private float _ghostLineMovingMultiplier;
     private int _scoreMultiplier;
     private int _score;
     private int _currentLevel;
-
+    private float _ghostLineMovingMultiplier;
     private float _maxRight;
     private float _maxLeft;
     private float _maxUp;
@@ -24,21 +23,21 @@ public class GameController : MonoBehaviour
 
     private CameraSizeController _cameraController;
 
-
     void Start()
     {
-        _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
-        _maxLeft = _maxRight * -1f;
-        _maxUp = Camera.main.orthographicSize;
-        _maxDown = _maxUp * -1f;
+        _maxRight = GameBoundaries.RightBoundary;
+        _maxLeft = GameBoundaries.LeftBoundary;
+        _maxUp = GameBoundaries.UpBoundary;
+        _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 0;
+        _currentLevel = 1;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _scoreMultiplier = 50;
         _score = 0;
         SetSceneForCurrentLevel();
 
+        Player.transform.position = new Vector3(0f, _maxDown + 1.7f, 0f);
     }
 
     private void SetSceneForCurrentLevel()
@@ -49,7 +48,7 @@ public class GameController : MonoBehaviour
         float enemyLineMoveSpeed = currentLevelInfo.GetEnemyLineMoveSpeed();
         int playerAmmo = currentLevelInfo.GetPlayerAmmo();
 
-        Vector2[] positions = currentLevelInfo.GetEnemiesPosition();
+        float[] yPositionsFromTop = currentLevelInfo.GetEnemiesYPositionFromTop();
         float[] moveSpeeds = currentLevelInfo.GetEnemiesMoveSpeed();
         bool[] canShoots = currentLevelInfo.GetEnemiesCanShoot();
         int[] shootingIntervals = currentLevelInfo.GetEnemiesShootingInterval();
@@ -61,7 +60,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < numOfEnemies; i++)
         {
             Enemy enemy = Instantiate(EnemyPrefab);
-            enemy.SetEnemyProperties(positions[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i], startingMoveDirections[i]);
+            enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i], startingMoveDirections[i]);
         }
 
         Player.SetAmmo(playerAmmo);

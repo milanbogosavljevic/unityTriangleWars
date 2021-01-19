@@ -6,7 +6,7 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private float enemyLineMoveSpeed;
     [SerializeField] private int playerAmmo;
-    [SerializeField] private Vector2[] enemiesPositions;
+    [SerializeField] private float[] enemiesYPositionFromTop;
     [SerializeField] private float[] enemiesMoveSpeed;
     [SerializeField] private bool[] enemiesCanShoot;
     [SerializeField] private int[] enemiesShootingInterval;
@@ -19,9 +19,9 @@ public class LevelsScriptableObj : ScriptableObject
     {
         return numberOfEnemies;
     }
-    public Vector2[] GetEnemiesPosition()
+    public float[] GetEnemiesYPositionFromTop()
     {
-        return enemiesPositions;
+        return enemiesYPositionFromTop;
     }
 
     public float[] GetEnemiesMoveSpeed()

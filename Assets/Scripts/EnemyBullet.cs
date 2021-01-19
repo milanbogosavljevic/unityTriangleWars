@@ -14,7 +14,7 @@ public class EnemyBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _maxDown = Camera.main.orthographicSize * -1f;
+        _maxDown = GameBoundaries.DownBoundary;
         gameObject.SetActive(false);
     }
 
