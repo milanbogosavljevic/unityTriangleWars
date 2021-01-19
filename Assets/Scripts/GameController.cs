@@ -9,16 +9,29 @@ public class GameController : MonoBehaviour
     [SerializeField] LineController PlayerLine;
     [SerializeField] LineController PlayerGhostLine;
     [SerializeField] LineController EnemyLine;
-    [SerializeField] private TextMeshProUGUI ScoreText;
+    [SerializeField] TextMeshProUGUI ScoreText;
+    [SerializeField] TextMeshProUGUI PointsWon;
 
     private float _ghostLineMovingMultiplier;
     private int _scoreMultiplier;
     private int _score;
     private int _currentLevel;
+
+    private float _maxRight;
+    private float _maxLeft;
+    private float _maxUp;
+    private float _maxDown;
+
     private CameraSizeController _cameraController;
+
 
     void Start()
     {
+        _maxRight = Camera.main.orthographicSize * Screen.width / Screen.height;
+        _maxLeft = _maxRight * -1f;
+        _maxUp = Camera.main.orthographicSize;
+        _maxDown = _maxUp * -1f;
+
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
         _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
@@ -60,10 +73,61 @@ public class GameController : MonoBehaviour
         EnemyLine.MoveLine(true);
     }
 
-    private void UpdateScore(int enemyLevel)
+    private void UpdateScore(int enemyLevel, Vector3 enemyPosition)
     {
-        _score += enemyLevel * _scoreMultiplier;
+        int scoreIncrementer = enemyLevel * _scoreMultiplier;
+        _score += scoreIncrementer;
         ScoreText.text = _score.ToString();
+        ShowPointsWon(scoreIncrementer, enemyPosition);
+    }
+
+    private void ShowPointsWon(int points, Vector3 enemyPosition)
+    {
+        PointsWon.gameObject.SetActive(true);
+        PointsWon.text = "+" + points.ToString();
+
+        float w = Screen.width / 2;
+        float h = Screen.height / 2;
+
+        float enemyX = enemyPosition.x;
+        float enemyY = enemyPosition.y;
+
+        float x;
+        float y;
+
+        if(enemyX < 0)
+        {
+            x = (enemyX / (_maxLeft / 100f)) * (w / 100);
+            x *= -1;
+        }
+        else
+        {
+            x = (enemyX / (_maxRight / 100f)) * (w / 100);
+        }
+
+        if(enemyY < 0)
+        {
+            y = (enemyY / (_maxDown / 100f)) * (h / 100);
+            y *= -1;
+        }
+        else
+        {
+            y = (enemyY / (_maxUp / 100f)) * (h / 100);
+        }
+
+        // ne kapiram bas zasto ovo mora ali radi
+        x += w;
+        y += h;
+
+        PointsWon.transform.position = new Vector3(x, y, 0);
+
+        LeanTween.moveY(PointsWon.gameObject, y + 150, 1f).setEaseLinear().setOnComplete(HidePointsWon);
+        LeanTween.alpha(PointsWon.gameObject, 0f, 1f);
+    }
+
+    private void HidePointsWon()
+    {
+        PointsWon.gameObject.SetActive(false);
     }
 
     private void GameOver()
@@ -128,7 +192,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void PlayerHitsEnemy(int enemyLevel)
+    public void PlayerHitsEnemy(int enemyLevel, Vector3 enemyPosition)
     {
         _cameraController.ShakeCamera();
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
@@ -136,7 +200,7 @@ public class GameController : MonoBehaviour
         currentGhostPosition -= (_ghostLineMovingMultiplier * enemyLevel);
         PlayerGhostLine.transform.position = new Vector3(currentGhostPosition, ghostPosition.y, ghostPosition.z);
         PlayerLine.MoveLine(true);
-        UpdateScore(enemyLevel);
+        UpdateScore(enemyLevel, enemyPosition);
     }
 
     public void EnemyHitsPlayer(int enemyLevel)
@@ -153,5 +217,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    
+    SETOVATI POZICIJE PLAYERA I ENEMIA NA OSNOVU VELICINE EKRANA
  */
