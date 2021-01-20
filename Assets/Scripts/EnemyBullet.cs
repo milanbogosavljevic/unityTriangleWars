@@ -39,7 +39,7 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("player"))
         {
             StopMoving();
-            collision.gameObject.GetComponent<Player>().PlayerIsHit(Enemy.GetEnemyLevel());
+            collision.gameObject.GetComponent<Player>().PlayerIsHit(Enemy.GetEnemyMoveLineBy());
         }
     }
 

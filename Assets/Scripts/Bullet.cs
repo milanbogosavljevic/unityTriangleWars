@@ -45,9 +45,8 @@ public class Bullet : MonoBehaviour
         {
             StopMoving();
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            GameController.PlayerHitsEnemy(enemy.GetEnemyLevel(), collision.gameObject.transform.position);
+            GameController.PlayerHitsEnemy(enemy.GetEnemyMoveLineBy(), collision.gameObject.transform.position, enemy.GetEnemyPoints());
             enemy.EnemyIsHit();
-            //GameController.PlayerHitsEnemy(enemy.GetEnemyLevel());
         }
     }
 

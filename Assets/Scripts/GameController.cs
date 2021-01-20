@@ -12,7 +12,6 @@ public class GameController : MonoBehaviour
     [SerializeField] TextMeshProUGUI ScoreText;
     [SerializeField] TextMeshProUGUI PointsWon;
 
-    private int _scoreMultiplier;
     private int _score;
     private int _currentLevel;
     private float _ghostLineMovingMultiplier;
@@ -31,9 +30,8 @@ public class GameController : MonoBehaviour
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 1;
+        _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
-        _scoreMultiplier = 50;
         _score = 0;
         SetSceneForCurrentLevel();
 
@@ -52,15 +50,16 @@ public class GameController : MonoBehaviour
         float[] moveSpeeds = currentLevelInfo.GetEnemiesMoveSpeed();
         bool[] canShoots = currentLevelInfo.GetEnemiesCanShoot();
         int[] shootingIntervals = currentLevelInfo.GetEnemiesShootingInterval();
-        int[] levels = currentLevelInfo.GetEnemiesLevel();
+        float[] enemyMoveLineBy = currentLevelInfo.GetEnemiesMoveLineBy();
         float[] bulletsSpeed = currentLevelInfo.GetEnemiesBulletSpeed();
         Sprite[] skins = currentLevelInfo.GetEnemiesSkin();
         string[] startingMoveDirections = currentLevelInfo.GetEnemiesStartingDirection();
+        int[] points = currentLevelInfo.GetEnemiesPoints();
         
         for (int i = 0; i < numOfEnemies; i++)
         {
             Enemy enemy = Instantiate(EnemyPrefab);
-            enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], levels[i], bulletsSpeed[i], skins[i], startingMoveDirections[i]);
+            enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], enemyMoveLineBy[i], bulletsSpeed[i], skins[i], startingMoveDirections[i], points[i]);
         }
 
         Player.SetAmmo(playerAmmo);
@@ -72,12 +71,10 @@ public class GameController : MonoBehaviour
         EnemyLine.MoveLine(true);
     }
 
-    private void UpdateScore(int enemyLevel, Vector3 enemyPosition)
+    private void UpdateScore(int points)
     {
-        int scoreIncrementer = enemyLevel * _scoreMultiplier;
-        _score += scoreIncrementer;
+        _score += points;
         ScoreText.text = _score.ToString();
-        ShowPointsWon(scoreIncrementer, enemyPosition);
     }
 
     private void ShowPointsWon(int points, Vector3 enemyPosition)
@@ -191,22 +188,25 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void PlayerHitsEnemy(int enemyLevel, Vector3 enemyPosition)
+    public void PlayerHitsEnemy(float moveLineBy, Vector3 enemyPosition, int enemyPoints)
     {
         _cameraController.ShakeCamera();
+
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
-        currentGhostPosition -= (_ghostLineMovingMultiplier * enemyLevel);
+        currentGhostPosition -= (_ghostLineMovingMultiplier * moveLineBy);
         PlayerGhostLine.transform.position = new Vector3(currentGhostPosition, ghostPosition.y, ghostPosition.z);
         PlayerLine.MoveLine(true);
-        UpdateScore(enemyLevel, enemyPosition);
+
+        UpdateScore(enemyPoints);
+        ShowPointsWon(enemyPoints, enemyPosition);
     }
 
-    public void EnemyHitsPlayer(int enemyLevel)
+    public void EnemyHitsPlayer(float moveLineBy)
     {
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
-        linePositionX += (_ghostLineMovingMultiplier * enemyLevel);
+        linePositionX += (_ghostLineMovingMultiplier * moveLineBy);
         PlayerLine.transform.position = new Vector3(linePositionX, playerLinePosition.y, playerLinePosition.z);
         PlayerGhostLine.transform.position = new Vector3(linePositionX, playerLinePosition.y, playerLinePosition.z);
 
@@ -216,5 +216,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    SETOVATI POZICIJE PLAYERA I ENEMIA NA OSNOVU VELICINE EKRANA
+    
  */

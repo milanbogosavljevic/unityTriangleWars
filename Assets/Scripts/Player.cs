@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PlayerIsHit(int enemyLevel)
+    public void PlayerIsHit(float enemyLevel)
     {
         GameController.EnemyHitsPlayer(enemyLevel);
     }

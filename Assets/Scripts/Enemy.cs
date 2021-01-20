@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     private bool _cahShoot;
     private bool _moveLeft = false;
     private bool _moveRight = false;
-    private int _enemyLevel;
+    private float _enemyMoveLineBy;
+    private int _points;
     private EnemyBullet _bullet;
     private ParticleSystem _explosion;
 
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
         _explosion.gameObject.SetActive(false);
     }
 
-    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, int enemyLevel, float bulletSpeed, Sprite skin, string moveDirection)
+    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points)
     {
         float x = moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
         float y = GameBoundaries.UpBoundary - yPositionFromTop;
@@ -36,7 +37,8 @@ public class Enemy : MonoBehaviour
         _moveSpeed = moveSpeed;
         _cahShoot = canShoot;
         _shootingInterval = shootingInterval;
-        _enemyLevel = enemyLevel;
+        _enemyMoveLineBy = moveLineBy;
+        _points = points;
 
         _bullet.SetBulletSpeed(bulletSpeed);
 
@@ -128,8 +130,13 @@ public class Enemy : MonoBehaviour
         ResetPosition();
     }
 
-    public int GetEnemyLevel()
+    public float GetEnemyMoveLineBy()
     {
-        return _enemyLevel;
+        return _enemyMoveLineBy;
+    }
+
+    public int GetEnemyPoints()
+    {
+        return _points;
     }
 }

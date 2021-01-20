@@ -23,7 +23,9 @@ MonoBehaviour:
   - 1
   enemiesCanShoot: 0001
   enemiesShootingInterval: 0000000003000000
-  enemiesLevel: 0200000001000000
+  enemiesMoveLineBy:
+  - 2.5
+  - 1.5
   enemiesBulletSpeed:
   - 0
   - 5
@@ -33,3 +35,4 @@ MonoBehaviour:
   startingMoveDirection:
   - right
   - left
+  enemiesPoints: 5000000032000000
