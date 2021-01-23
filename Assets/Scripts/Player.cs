@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private TextMeshProUGUI AmmoText;
     [SerializeField] Bullet PlayerBullet;
+    [SerializeField] ParticleSystem ExplosionPrefab;
 
     private bool _moveLeft = false;
     private bool _moveRight = false;
@@ -107,5 +108,16 @@ public class Player : MonoBehaviour
             PlayerBullet.StartMoving();
             DecreaseAmmo();
         }
+    }
+
+    public void ShowExplosion()
+    {
+        gameObject.SetActive(false);
+        var explosion = Instantiate(ExplosionPrefab);
+        explosion.gameObject.GetComponent<ExplosionController>().ChangeParticleSkin(gameObject.GetComponent<SpriteRenderer>().sprite);
+        explosion.transform.position = transform.position;
+        explosion.Play();
+        var main = explosion.main;
+        main.stopAction = ParticleSystemStopAction.Destroy;
     }
 }

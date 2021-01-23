@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     [SerializeField] LineController EnemyLine;
     [SerializeField] TextMeshProUGUI ScoreText;
     [SerializeField] TextMeshProUGUI PointsWon;
+    [SerializeField] TextMeshProUGUI LevelNumberLabel;
+    [SerializeField] TextMeshProUGUI WellDoneLabel;
 
     private int _score;
     private int _currentLevel;
@@ -62,6 +64,8 @@ public class GameController : MonoBehaviour
             enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], enemyMoveLineBy[i], bulletsSpeed[i], skins[i], startingMoveDirections[i], points[i]);
         }
 
+        PauseEnemies(true);
+
         Player.SetAmmo(playerAmmo);
 
         EnemyLine.SetLineMoveSpeed(enemyLineMoveSpeed);
@@ -69,6 +73,36 @@ public class GameController : MonoBehaviour
         PlayerGhostLine.ResetLinePosition();
         PlayerLine.ResetLinePosition();
         EnemyLine.MoveLine(true);
+
+        ShowLevelNumberAnimation();
+    }
+
+    private void PauseEnemies(bool pause)
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+        foreach(Enemy enemy in enemies)
+        {
+            enemy.PauseMove(pause);
+        }
+    }
+
+    private void ShowLevelNumberAnimation()
+    {
+        float x = Screen.width * 1.5f * -1;
+        float y = LevelNumberLabel.transform.position.y;
+        LevelNumberLabel.transform.position = new Vector2(x, y);
+        LevelNumberLabel.text = "Level " + (_currentLevel + 1).ToString();
+        LevelNumberLabel.gameObject.SetActive(true);
+        float animationDuration = 1f;
+        float secondAnimationDelay = animationDuration + 0.3f;
+        LeanTween.moveX(LevelNumberLabel.gameObject, Screen.width / 2, animationDuration).setEaseOutBack();
+        LeanTween.moveX(LevelNumberLabel.gameObject, Screen.width * 1.5f, animationDuration).setEaseInBack().setDelay(secondAnimationDelay).setOnComplete(StartGame);
+    }
+
+    private void StartGame()
+    {
+        LevelNumberLabel.gameObject.SetActive(false);
+        PauseEnemies(false);
     }
 
     private void UpdateScore(int points)
@@ -118,7 +152,6 @@ public class GameController : MonoBehaviour
         PointsWon.transform.position = new Vector3(x, y, 0);
 
         LeanTween.moveY(PointsWon.gameObject, y + 150, 1f).setEaseLinear().setOnComplete(HidePointsWon);
-        LeanTween.alpha(PointsWon.gameObject, 0f, 1f);
     }
 
     private void HidePointsWon()
@@ -128,12 +161,30 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("Game Over");
+        Player.ShowExplosion();
     }
 
     private void LevelPassed()
     {
         ClearEnemies();
+        ShowLevelPassedAnimation();
+    }
+
+    private void ShowLevelPassedAnimation()
+    {
+        float x = Screen.width * 1.5f * -1;
+        float y = WellDoneLabel.transform.position.y;
+        WellDoneLabel.transform.position = new Vector2(x, y);
+        WellDoneLabel.gameObject.SetActive(true);
+        float animationDuration = 1f;
+        float secondAnimationDelay = animationDuration + 0.3f;
+        LeanTween.moveX(WellDoneLabel.gameObject, Screen.width / 2, animationDuration).setEaseOutBack();
+        LeanTween.moveX(WellDoneLabel.gameObject, Screen.width * 1.5f, animationDuration).setEaseInBack().setDelay(secondAnimationDelay).setOnComplete(LoadNexLevel);
+    }
+
+    private void LoadNexLevel()
+    {
+        WellDoneLabel.gameObject.SetActive(false);
         _currentLevel++;
         SetSceneForCurrentLevel();
     }
@@ -204,6 +255,8 @@ public class GameController : MonoBehaviour
 
     public void EnemyHitsPlayer(float moveLineBy)
     {
+        _cameraController.ShakeCamera();
+
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
         linePositionX += (_ghostLineMovingMultiplier * moveLineBy);

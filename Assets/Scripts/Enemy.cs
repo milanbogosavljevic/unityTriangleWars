@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private bool _cahShoot;
     private bool _moveLeft = false;
     private bool _moveRight = false;
+    private string _moveDirection;
     private float _enemyMoveLineBy;
     private int _points;
     private EnemyBullet _bullet;
@@ -31,7 +32,8 @@ public class Enemy : MonoBehaviour
 
     public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points)
     {
-        float x = moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
+        _moveDirection = moveDirection;
+        float x = _moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
         float y = GameBoundaries.UpBoundary - yPositionFromTop;
         transform.position = new Vector2(x,y);
         _moveSpeed = moveSpeed;
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
         _bullet.SetBulletSpeed(bulletSpeed);
 
         SetSkin(skin);
-        StartMoving(moveDirection);
+        StartMoving();
 
         if (_cahShoot)
         {
@@ -96,10 +98,10 @@ public class Enemy : MonoBehaviour
 
     void ResetPosition()
     {
-        string direction = Random.value > 0.5f ? "left" : "right";
-        float xPos = direction == "left" ? _maxRight + 1f : _maxLeft - 1f;
+        _moveDirection = Random.value > 0.5f ? "left" : "right";
+        float xPos = _moveDirection == "left" ? _maxRight + 1f : _maxLeft - 1f;
         transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
-        StartMoving(direction);
+        StartMoving();
     }
 
     void FireBullet()
@@ -107,10 +109,10 @@ public class Enemy : MonoBehaviour
         _bullet.StartMoving();
     }
 
-    public void StartMoving(string direction)
+    public void StartMoving()
     {
         gameObject.SetActive(true);
-        _moveLeft = direction == "left";
+        _moveLeft = _moveDirection == "left";
         _moveRight = !_moveLeft;
     }
 
@@ -138,5 +140,17 @@ public class Enemy : MonoBehaviour
     public int GetEnemyPoints()
     {
         return _points;
+    }
+
+    public void PauseMove(bool pause)
+    {
+        if (pause)
+        {
+            StopMoving();
+        }
+        else
+        {
+            StartMoving();
+        }
     }
 }
