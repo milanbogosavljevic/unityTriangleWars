@@ -9,7 +9,7 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private float[] enemiesYPositionFromTop;
     [SerializeField] private float[] enemiesMoveSpeed;
     [SerializeField] private bool[] enemiesCanShoot;
-    [SerializeField] private int[] enemiesShootingInterval;
+    [SerializeField] private float[] enemiesShootingInterval;
     [SerializeField] private float[] enemiesMoveLineBy;
     [SerializeField] private float[] enemiesBulletSpeed;
     [SerializeField] private Sprite[] enemiesSkin;
@@ -35,7 +35,7 @@ public class LevelsScriptableObj : ScriptableObject
         return enemiesCanShoot;
     }
 
-    public int[] GetEnemiesShootingInterval()
+    public float[] GetEnemiesShootingInterval()
     {
         return enemiesShootingInterval;
     }

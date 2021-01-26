@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class Enemy : MonoBehaviour
     private string _moveDirection;
     private float _enemyMoveLineBy;
     private int _points;
+    private float _bulletSpeed;
     private EnemyBullet _bullet;
+    private List<EnemyBullet> _bullets = new List<EnemyBullet>();
     private ParticleSystem _explosion;
 
     void Awake()
@@ -23,8 +26,9 @@ public class Enemy : MonoBehaviour
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
 
-        _bullet = Instantiate(EnemyBulletPrefab);
+/*        _bullet = Instantiate(EnemyBulletPrefab);
         _bullet.SetEnemy(this);
+        _bullets.Add(_bullet);*/
 
         _explosion = Instantiate(ExplosionPrefab);
         _explosion.gameObject.SetActive(false);
@@ -41,8 +45,12 @@ public class Enemy : MonoBehaviour
         _shootingInterval = shootingInterval;
         _enemyMoveLineBy = moveLineBy;
         _points = points;
+        _bulletSpeed = bulletSpeed;
 
-        _bullet.SetBulletSpeed(bulletSpeed);
+        _bullet = Instantiate(EnemyBulletPrefab);
+        _bullet.SetBulletSpeed(_bulletSpeed);
+        _bullet.SetEnemy(this);
+        _bullets.Add(_bullet);
 
         SetSkin(skin);
         StartMoving();
@@ -106,7 +114,28 @@ public class Enemy : MonoBehaviour
 
     void FireBullet()
     {
-        _bullet.StartMoving();
+        //_bullet.StartMoving();
+
+        bool foundBullet = false;
+
+        for (int i = 0; i < _bullets.Count; i++)
+        {
+            if (!_bullets[i].gameObject.activeSelf)
+            {
+                _bullets[i].StartMoving();
+                foundBullet = true;
+                break;
+            }
+        }
+
+        if (!foundBullet)
+        {
+            EnemyBullet newBullet = Instantiate(EnemyBulletPrefab);
+            newBullet.SetBulletSpeed(_bulletSpeed);
+            newBullet.SetEnemy(this);
+            _bullets.Add(newBullet);
+            newBullet.StartMoving();
+        }
     }
 
     public void StartMoving()

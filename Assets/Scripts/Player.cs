@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] Bullet PlayerBullet;
     [SerializeField] ParticleSystem ExplosionPrefab;
 
+    private List<Bullet> _bullets = new List<Bullet>();
     private bool _moveLeft = false;
     private bool _moveRight = false;
     private float _maxLeft;
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
     {
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
+
+        _bullets.Add(PlayerBullet);
     }
 
     private void Awake()
@@ -52,6 +56,28 @@ public class Player : MonoBehaviour
     private void UpdateAmmoText()
     {
         AmmoText.text = _ammo.ToString();
+    }
+
+    private void ReleaseBullet()
+    {
+        bool foundBullet = false;
+
+        for(int i = 0; i < _bullets.Count; i++)
+        {
+            if (!_bullets[i].gameObject.activeSelf)
+            {
+                _bullets[i].StartMoving();
+                foundBullet = true;
+                break;
+            }
+        }
+
+        if (!foundBullet)
+        {
+            Bullet newBullet = Instantiate(PlayerBullet);
+            _bullets.Add(newBullet);
+            newBullet.StartMoving();
+        }
     }
 
     public void StartMoving(string direction)
@@ -98,16 +124,17 @@ public class Player : MonoBehaviour
 
     public bool PlayerCanFire()
     {
-        return _ammo > 0 && !PlayerBullet.isActiveAndEnabled;
+        return _ammo > 0;// && !PlayerBullet.isActiveAndEnabled;
     }
 
     public void Fire()
     {
-        if (PlayerCanFire())
-        {
-            PlayerBullet.StartMoving();
+        //if (PlayerCanFire())
+        //{
+            //PlayerBullet.StartMoving();
             DecreaseAmmo();
-        }
+            ReleaseBullet();
+        //}
     }
 
     public void ShowExplosion()

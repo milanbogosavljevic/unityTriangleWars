@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
 
     private CameraSizeController _cameraController;
 
+    private Stats _stats;
+
     void Start()
     {
         _maxRight = GameBoundaries.RightBoundary;
@@ -38,6 +40,9 @@ public class GameController : MonoBehaviour
         SetSceneForCurrentLevel();
 
         Player.transform.position = new Vector3(0f, _maxDown + 1.7f, 0f);
+
+        _stats = new Stats();
+        _stats.RestoreStats();
     }
 
     private void SetSceneForCurrentLevel()
@@ -51,7 +56,7 @@ public class GameController : MonoBehaviour
         float[] yPositionsFromTop = currentLevelInfo.GetEnemiesYPositionFromTop();
         float[] moveSpeeds = currentLevelInfo.GetEnemiesMoveSpeed();
         bool[] canShoots = currentLevelInfo.GetEnemiesCanShoot();
-        int[] shootingIntervals = currentLevelInfo.GetEnemiesShootingInterval();
+        float[] shootingIntervals = currentLevelInfo.GetEnemiesShootingInterval();
         float[] enemyMoveLineBy = currentLevelInfo.GetEnemiesMoveLineBy();
         float[] bulletsSpeed = currentLevelInfo.GetEnemiesBulletSpeed();
         Sprite[] skins = currentLevelInfo.GetEnemiesSkin();
@@ -162,12 +167,14 @@ public class GameController : MonoBehaviour
     private void GameOver()
     {
         Player.ShowExplosion();
+        _stats.SaveStats();
     }
 
     private void LevelPassed()
     {
         ClearEnemies();
         ShowLevelPassedAnimation();
+        _stats.SaveStats();
     }
 
     private void ShowLevelPassedAnimation()
@@ -222,7 +229,11 @@ public class GameController : MonoBehaviour
 
     public void PlayerFired()
     {
-        Player.Fire();
+        if (Player.PlayerCanFire())
+        {
+            Player.Fire();
+            _stats.PlayerFired();
+        }
     }
 
     public void LineFinished(string lineName)
@@ -251,6 +262,8 @@ public class GameController : MonoBehaviour
 
         UpdateScore(enemyPoints);
         ShowPointsWon(enemyPoints, enemyPosition);
+
+        _stats.EnemyHit();
     }
 
     public void EnemyHitsPlayer(float moveLineBy)
@@ -269,5 +282,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    
+    STATISTIC
  */
