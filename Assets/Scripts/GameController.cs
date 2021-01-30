@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class GameController : MonoBehaviour
     [SerializeField] LineController PlayerGhostLine;
     [SerializeField] LineController EnemyLine;
     [SerializeField] TextMeshProUGUI ScoreText;
-    [SerializeField] TextMeshProUGUI PointsWon;
+    //[SerializeField] TextMeshProUGUI PointsWon;
     [SerializeField] TextMeshProUGUI LevelNumberLabel;
     [SerializeField] TextMeshProUGUI WellDoneLabel;
+
+    [SerializeField] List<TextMeshProUGUI> PointsWonTextFields = new List<TextMeshProUGUI>();
 
     private int _score;
     private int _currentLevel;
@@ -52,7 +55,6 @@ public class GameController : MonoBehaviour
         int numOfEnemies = currentLevelInfo.GetNumberOfEnemies();
         float enemyLineMoveSpeed = currentLevelInfo.GetEnemyLineMoveSpeed();
         int playerAmmo = currentLevelInfo.GetPlayerAmmo();
-
         float[] yPositionsFromTop = currentLevelInfo.GetEnemiesYPositionFromTop();
         float[] moveSpeeds = currentLevelInfo.GetEnemiesMoveSpeed();
         bool[] canShoots = currentLevelInfo.GetEnemiesCanShoot();
@@ -77,7 +79,7 @@ public class GameController : MonoBehaviour
         EnemyLine.ResetLinePosition();
         PlayerGhostLine.ResetLinePosition();
         PlayerLine.ResetLinePosition();
-        EnemyLine.MoveLine(true);
+        //EnemyLine.MoveLine(true);
 
         ShowLevelNumberAnimation();
     }
@@ -108,6 +110,7 @@ public class GameController : MonoBehaviour
     {
         LevelNumberLabel.gameObject.SetActive(false);
         PauseEnemies(false);
+        EnemyLine.MoveLine(true);
     }
 
     private void UpdateScore(int points)
@@ -116,8 +119,23 @@ public class GameController : MonoBehaviour
         ScoreText.text = _score.ToString();
     }
 
+    private TextMeshProUGUI GetPointsWonTextField()
+    {
+        for(int i = 0; i < PointsWonTextFields.Count; i++)
+        {
+            if (!PointsWonTextFields[i].gameObject.activeSelf)
+            {
+                return PointsWonTextFields[i];
+            }
+        }
+
+        return PointsWonTextFields[0];
+    }
+
     private void ShowPointsWon(int points, Vector3 enemyPosition)
     {
+        TextMeshProUGUI PointsWon = GetPointsWonTextField();
+
         PointsWon.gameObject.SetActive(true);
         PointsWon.text = "+" + points.ToString();
 
@@ -156,12 +174,7 @@ public class GameController : MonoBehaviour
 
         PointsWon.transform.position = new Vector3(x, y, 0);
 
-        LeanTween.moveY(PointsWon.gameObject, y + 150, 1f).setEaseLinear().setOnComplete(HidePointsWon);
-    }
-
-    private void HidePointsWon()
-    {
-        PointsWon.gameObject.SetActive(false);
+        LeanTween.moveY(PointsWon.gameObject, y + 150, 1f).setEaseLinear().setOnComplete(()=>PointsWon.gameObject.SetActive(false));
     }
 
     private void GameOver()
@@ -282,5 +295,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    STATISTIC
+    
  */
