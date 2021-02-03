@@ -1,42 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WelcomeSceneButtonsController : MonoBehaviour
 {
     [SerializeField] Button SoundButton;
     [SerializeField] Button MusicButton;
-    private bool _musicIsOn;
-    private bool _soundIsOn;
+    [SerializeField] SoundController SoundController;
     
     void Start()
     {
-        _musicIsOn = true;
-        _soundIsOn = true;
+        float soundAlpha = SoundController.IsSoundOn() ? 1 : 0.3f;
+        Color soundColor = SoundButton.image.color;
+        soundColor.a = soundAlpha;
+        SoundButton.image.color = soundColor;
+
+        float musicAlpha = SoundController.IsMusicOn() ? 1 : 0.3f;
+        Color musicColor = MusicButton.image.color;
+        musicColor.a = musicAlpha;
+        MusicButton.image.color = musicColor;
     }
 
     public void StartGame()
     {
-
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
     {
-
+        Application.Quit();
     }
 
     public void SoundButtonClickHandler()
     {
-        _soundIsOn = !_soundIsOn;
-        float a = _soundIsOn ? 1 : 0.3f;
+        SoundController.ToggleSound();
+        float a = SoundController.IsSoundOn() ? 1 : 0.3f;
         LeanTween.alpha(SoundButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
     }
 
     public void MusicButtonClickHandler()
     {
-        _musicIsOn = !_musicIsOn;
-        float a = _musicIsOn ? 1 : 0.3f;
+        SoundController.ToggleMusic();
+        float a = SoundController.IsMusicOn() ? 1 : 0.3f;
         LeanTween.alpha(MusicButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
     }
 }

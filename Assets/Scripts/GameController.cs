@@ -26,11 +26,12 @@ public class GameController : MonoBehaviour
     private float _maxDown;
 
     private CameraSizeController _cameraController;
-
     private Stats _stats;
+    private SoundController _soundController;
 
     void Start()
     {
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;

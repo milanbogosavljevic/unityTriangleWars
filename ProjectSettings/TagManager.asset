@@ -9,6 +9,7 @@ TagManager:
   - player
   - enemyExplosion
   - enemyBullet
+  - SoundController
   layers:
   - Default
   - TransparentFX

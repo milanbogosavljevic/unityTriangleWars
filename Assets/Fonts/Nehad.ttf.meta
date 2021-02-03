@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d6f7c6e0eb7f114f9e8681de3b6e838
+guid: 0fa786a9a6088864fb0f656320ddc10f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - NEON GLOW
+  - Nehad
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
