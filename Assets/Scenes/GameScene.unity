@@ -844,6 +844,9 @@ MonoBehaviour:
   LevelsInfo:
   - {fileID: 11400000, guid: ff5b602c56d03f84096334a0622061db, type: 2}
   - {fileID: 11400000, guid: c4154f4691895374b9e4bc3469cda062, type: 2}
+  - {fileID: 11400000, guid: 4fb7e8d12c2ed2f408632d114d5de834, type: 2}
+  - {fileID: 11400000, guid: 1875a3f471d284b43a1671f065188488, type: 2}
+  - {fileID: 11400000, guid: aa264a322be05284583e244a88b4eab4, type: 2}
   Player: {fileID: 965212880}
   EnemyPrefab: {fileID: 6251132217165589843, guid: 13c31d82eb0d71b4391dbb5042d74170, type: 3}
   PlayerLine: {fileID: 521586324}

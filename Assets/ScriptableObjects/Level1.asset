@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfEnemies: 1
   enemyLineMoveSpeed: 0.1
-  playerAmmo: 18
+  playerAmmo: 12
   enemiesYPositionFromTop:
   - 1.5
   enemiesMoveSpeed:
   - 1
-  enemiesCanShoot: 01
+  enemiesCanShoot: 00
   enemiesShootingInterval:
   - 3
   enemiesMoveLineBy:

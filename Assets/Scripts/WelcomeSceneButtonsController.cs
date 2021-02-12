@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class WelcomeSceneButtonsController : MonoBehaviour
 {
+    [SerializeField] Button PlayButton;
+    [SerializeField] Button QuitButton;
     [SerializeField] Button SoundButton;
     [SerializeField] Button MusicButton;
     [SerializeField] SoundController SoundController;
@@ -24,6 +26,11 @@ public class WelcomeSceneButtonsController : MonoBehaviour
 
     public void StartGame()
     {
+        PlayButton.interactable = false;
+        QuitButton.interactable = false;
+        MusicButton.interactable = false;
+        MusicButton.interactable = false;
+
         SceneManager.LoadScene(2);
     }
 

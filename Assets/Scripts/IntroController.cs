@@ -48,7 +48,7 @@ public class IntroController : MonoBehaviour
 
     IEnumerator ShowGame()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene(1);
     }
 }

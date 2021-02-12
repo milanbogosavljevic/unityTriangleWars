@@ -31,14 +31,14 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 0;
+        _currentLevel = 4;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _score = 0;
         SetSceneForCurrentLevel();
@@ -182,13 +182,14 @@ public class GameController : MonoBehaviour
     {
         Player.ShowExplosion();
         _stats.SaveStats();
+        _stats.CheckHighscore(_score);
     }
 
     private void LevelPassed()
     {
         ClearEnemies();
         ShowLevelPassedAnimation();
-        _stats.SaveStats();
+        //_stats.SaveStats();
     }
 
     private void ShowLevelPassedAnimation()
