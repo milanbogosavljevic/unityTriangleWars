@@ -15,6 +15,7 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private Sprite[] enemiesSkin;
     [SerializeField] private string[] startingMoveDirection;
     [SerializeField] private int[] enemiesPoints;
+    [SerializeField] private bool[] enemiesPingPongMove;
 
     public int GetNumberOfEnemies()
     {
@@ -73,5 +74,10 @@ public class LevelsScriptableObj : ScriptableObject
     public int[] GetEnemiesPoints()
     {
         return enemiesPoints;
+    }
+
+    public bool[] GetEnemiesPingPongMove()
+    {
+        return enemiesPingPongMove;
     }
 }

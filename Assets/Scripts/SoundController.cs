@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    //[SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private AudioSource backgroundMusic;
     //[SerializeField] private AudioSource levelPassedSound;
 
     private bool _musicIsOn;
@@ -41,15 +41,6 @@ public class SoundController : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        if (_musicIsOn)
-        {
-            Debug.Log("Play music");
-            //backgroundMusic.Play();
-        }
-    }
-
     public void ToggleSound()
     {
         _soundIsOn = !_soundIsOn;
@@ -62,33 +53,15 @@ public class SoundController : MonoBehaviour
         _musicIsOn = !_musicIsOn;
         string onOff = _musicIsOn ? "on" : "off";
         PlayerPrefs.SetString("MusicPlay", onOff);
-        /*        if (_musicIsOn)
-                {
-                    backgroundMusic.Play();
-                }
-                else
-                {
-                    backgroundMusic.Stop();
-                }*/
-    }
-
-/*    public void SetSoundOn(bool on)
-    {
-        _soundIsOn = on;
-    }
-
-    public void SetMusicOn(bool on)
-    {
-        _musicIsOn = on;
-        if (on)
+        if (_musicIsOn)
         {
             backgroundMusic.Play();
         }
         else
         {
-            backgroundMusic.Stop();
+            backgroundMusic.Pause();
         }
-    }*/
+    }
 
     public bool IsMusicOn()
     {
@@ -98,6 +71,14 @@ public class SoundController : MonoBehaviour
     public bool IsSoundOn()
     {
         return _soundIsOn;
+    }
+
+    public void PlayBackgroundMusic()
+    {
+        if (_musicIsOn)
+        {
+            backgroundMusic.Play();
+        }
     }
 
 /*    public void PlayLevelPassedSound()

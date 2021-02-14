@@ -27,7 +27,8 @@ MonoBehaviour:
   enemiesBulletSpeed:
   - 0
   enemiesSkin:
-  - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
   startingMoveDirection:
   - right
   enemiesPoints: 96000000
+  enemiesPingPongMove: 01

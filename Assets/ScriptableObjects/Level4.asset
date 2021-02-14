@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfEnemies: 3
   enemyLineMoveSpeed: 0.18
-  playerAmmo: 10
+  playerAmmo: 12
   enemiesYPositionFromTop:
   - 1.5
   - 2.5
@@ -45,3 +45,4 @@ MonoBehaviour:
   - right
   - left
   enemiesPoints: 640000004b00000037000000
+  enemiesPingPongMove: 000100

@@ -31,12 +31,12 @@ public class WelcomeSceneButtonsController : MonoBehaviour
         MusicButton.interactable = false;
         MusicButton.interactable = false;
 
-        SceneManager.LoadScene(2);
+        ScenesController.StartGame();
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        ScenesController.QuitGame();
     }
 
     public void SoundButtonClickHandler()

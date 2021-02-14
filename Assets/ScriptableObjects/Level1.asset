@@ -31,3 +31,4 @@ MonoBehaviour:
   startingMoveDirection:
   - right
   enemiesPoints: 1e000000
+  enemiesPingPongMove: 01

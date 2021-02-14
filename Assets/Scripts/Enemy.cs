@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private EnemyBullet _bullet;
     private List<EnemyBullet> _bullets = new List<EnemyBullet>();
     private ParticleSystem _explosion;
+    private bool _pingPongMove;
 
     void Awake()
     {
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
         _explosion.gameObject.SetActive(false);
     }
 
-    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points)
+    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points, bool pingPongMove)
     {
         _moveDirection = moveDirection;
         float x = _moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
@@ -59,6 +60,14 @@ public class Enemy : MonoBehaviour
         {
             InvokeRepeating("FireBullet", 2f, _shootingInterval);
         }
+
+        _pingPongMove = pingPongMove;
+
+        if (!_pingPongMove)
+        {
+            _maxRight += 0.4f;
+            _maxLeft -= 0.4f;
+        }
     }
 
     // Update is called once per frame
@@ -77,7 +86,14 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                SwitchDirection();
+                if (_pingPongMove)
+                {
+                    SwitchDirection();
+                }
+                else
+                {
+                    TeleportToOppositeSide();
+                }
             }
         }
         else if (_moveRight)
@@ -88,7 +104,14 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                SwitchDirection();
+                if (_pingPongMove)
+                {
+                    SwitchDirection();
+                }
+                else
+                {
+                    TeleportToOppositeSide();
+                }
             }
         }
     }
@@ -97,6 +120,13 @@ public class Enemy : MonoBehaviour
     {
         _moveLeft = !_moveLeft;
         _moveRight = !_moveRight;
+    }
+
+    void TeleportToOppositeSide()
+    {
+        float x = _moveDirection == "right" ? _maxLeft : _maxRight;
+        float y = transform.position.y;
+        transform.position = new Vector2(x, y);
     }
 
     void StopMoving()

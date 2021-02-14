@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] List<TextMeshProUGUI> PointsWonTextFields = new List<TextMeshProUGUI>();
 
+    [SerializeField] GameObject Menu;
+
     private int _score;
     private int _currentLevel;
     private float _ghostLineMovingMultiplier;
@@ -29,16 +31,24 @@ public class GameController : MonoBehaviour
     private Stats _stats;
     private SoundController _soundController;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ShowMenu();
+        }
+    }
+
     void Start()
     {
-        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 4;
+        _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _score = 0;
         SetSceneForCurrentLevel();
@@ -47,6 +57,8 @@ public class GameController : MonoBehaviour
 
         _stats = new Stats();
         _stats.RestoreStats();
+
+        _soundController.PlayBackgroundMusic();
     }
 
     private void SetSceneForCurrentLevel()
@@ -65,11 +77,12 @@ public class GameController : MonoBehaviour
         Sprite[] skins = currentLevelInfo.GetEnemiesSkin();
         string[] startingMoveDirections = currentLevelInfo.GetEnemiesStartingDirection();
         int[] points = currentLevelInfo.GetEnemiesPoints();
+        bool[] enemiesPingPongMove = currentLevelInfo.GetEnemiesPingPongMove();
         
         for (int i = 0; i < numOfEnemies; i++)
         {
             Enemy enemy = Instantiate(EnemyPrefab);
-            enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], enemyMoveLineBy[i], bulletsSpeed[i], skins[i], startingMoveDirections[i], points[i]);
+            enemy.SetEnemyProperties(yPositionsFromTop[i], moveSpeeds[i], canShoots[i], shootingIntervals[i], enemyMoveLineBy[i], bulletsSpeed[i], skins[i], startingMoveDirections[i], points[i], enemiesPingPongMove[i]);
         }
 
         PauseEnemies(true);
@@ -293,6 +306,26 @@ public class GameController : MonoBehaviour
 
         PlayerLine.CheckIfLineIsOverMax();
         PlayerGhostLine.CheckIfLineIsOverMax();
+    }
+
+    public void ShowMenu()
+    {
+        Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+        Menu.SetActive(!Menu.activeSelf);
+    }
+
+    public void ExitToHome()
+    {
+        Time.timeScale = 1;
+        Menu.SetActive(false);
+        ScenesController.ExitLevel();
+    }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1;
+        Menu.SetActive(false);
+        ScenesController.RestartLevel();
     }
 }
 /*
