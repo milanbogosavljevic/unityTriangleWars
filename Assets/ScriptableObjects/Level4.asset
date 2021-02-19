@@ -46,3 +46,4 @@ MonoBehaviour:
   - left
   enemiesPoints: 640000004b00000037000000
   enemiesPingPongMove: 000100
+  enemiesAlphaAnimation: 000000

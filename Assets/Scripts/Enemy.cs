@@ -27,15 +27,11 @@ public class Enemy : MonoBehaviour
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
 
-/*        _bullet = Instantiate(EnemyBulletPrefab);
-        _bullet.SetEnemy(this);
-        _bullets.Add(_bullet);*/
-
         _explosion = Instantiate(ExplosionPrefab);
         _explosion.gameObject.SetActive(false);
     }
 
-    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points, bool pingPongMove)
+    public void SetEnemyProperties(float yPositionFromTop, float moveSpeed, bool canShoot, float shootingInterval, float moveLineBy, float bulletSpeed, Sprite skin, string moveDirection, int points, bool pingPongMove, bool alphaAnimation)
     {
         _moveDirection = moveDirection;
         float x = _moveDirection == "right" ? _maxLeft - 1.5f : _maxRight + 1.5f;
@@ -67,6 +63,11 @@ public class Enemy : MonoBehaviour
         {
             _maxRight += 0.4f;
             _maxLeft -= 0.4f;
+        }
+
+        if (alphaAnimation)
+        {
+            LeanTween.alpha(gameObject, 0f, 2f).setLoopPingPong();
         }
     }
 

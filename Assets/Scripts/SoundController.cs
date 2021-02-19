@@ -6,7 +6,9 @@ using UnityEngine;
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioSource backgroundMusic;
-    //[SerializeField] private AudioSource levelPassedSound;
+    [SerializeField] private AudioSource levelPassedSound;
+    [SerializeField] private AudioSource ShootSound;
+    [SerializeField] private AudioSource EnemuHitSound;
 
     private bool _musicIsOn;
     private bool _soundIsOn;
@@ -81,11 +83,27 @@ public class SoundController : MonoBehaviour
         }
     }
 
-/*    public void PlayLevelPassedSound()
+    public void PlayShootSound()
+    {
+        if (_soundIsOn)
+        {
+            ShootSound.Play();
+        }
+    }
+
+    public void PlayLevelPassedSound()
     {
         if (_soundIsOn)
         {
             levelPassedSound.Play();
         }
-    }*/
+    }
+
+    public void PlayEnemyHitSound()
+    {
+        if (_soundIsOn)
+        {
+            EnemuHitSound.Play();
+        }
+    }
 }
