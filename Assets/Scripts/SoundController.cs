@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] private AudioSource backgroundMusic;
-    [SerializeField] private AudioSource levelPassedSound;
-    [SerializeField] private AudioSource ShootSound;
-    [SerializeField] private AudioSource EnemuHitSound;
+    [SerializeField] private AudioSource BackgroundMusic;
+    [SerializeField] private AudioSource SoundsPlayer;
+
+    [SerializeField] private AudioClip LevelPassed;
+    [SerializeField] private AudioClip PlayerShoot;
+    [SerializeField] private AudioClip EnemyShoot;
+    [SerializeField] private AudioClip EnemyHit;
+    [SerializeField] private AudioClip PlayerExplosion;
 
     private bool _musicIsOn;
     private bool _soundIsOn;
 
-    private void Awake()
+    private void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("SoundController");
+
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+
         if (PlayerPrefs.HasKey("MusicPlay"))
         {
             _musicIsOn = PlayerPrefs.GetString("MusicPlay") == "on";
@@ -32,15 +41,6 @@ public class SoundController : MonoBehaviour
         {
             _soundIsOn = true;
         }
-
-
-        DontDestroyOnLoad(this.gameObject);
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("SoundController");
-
-        if (objs.Length > 1)
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     public void ToggleSound()
@@ -55,14 +55,6 @@ public class SoundController : MonoBehaviour
         _musicIsOn = !_musicIsOn;
         string onOff = _musicIsOn ? "on" : "off";
         PlayerPrefs.SetString("MusicPlay", onOff);
-        if (_musicIsOn)
-        {
-            backgroundMusic.Play();
-        }
-        else
-        {
-            backgroundMusic.Pause();
-        }
     }
 
     public bool IsMusicOn()
@@ -79,7 +71,15 @@ public class SoundController : MonoBehaviour
     {
         if (_musicIsOn)
         {
-            backgroundMusic.Play();
+            BackgroundMusic.Play();
+        }
+    }
+
+    public void StopBackgroundMusic()
+    {
+        if (_musicIsOn)
+        {
+            BackgroundMusic.Stop();
         }
     }
 
@@ -87,7 +87,7 @@ public class SoundController : MonoBehaviour
     {
         if (_soundIsOn)
         {
-            ShootSound.Play();
+            SoundsPlayer.PlayOneShot(PlayerShoot, 1);
         }
     }
 
@@ -95,7 +95,7 @@ public class SoundController : MonoBehaviour
     {
         if (_soundIsOn)
         {
-            levelPassedSound.Play();
+            SoundsPlayer.PlayOneShot(LevelPassed, 0.7f);
         }
     }
 
@@ -103,7 +103,23 @@ public class SoundController : MonoBehaviour
     {
         if (_soundIsOn)
         {
-            EnemuHitSound.Play();
+            SoundsPlayer.PlayOneShot(EnemyHit, 1);
+        }
+    }
+
+    public void PlayPlayerExplosionSound()
+    {
+        if (_soundIsOn)
+        {
+            SoundsPlayer.PlayOneShot(PlayerExplosion, 1);
+        }
+    }
+
+    public void PlayEnemyShootSound()
+    {
+        if (_soundIsOn)
+        {
+            SoundsPlayer.PlayOneShot(EnemyShoot, 1);
         }
     }
 }

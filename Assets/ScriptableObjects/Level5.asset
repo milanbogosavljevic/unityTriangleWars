@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfEnemies: 1
   enemyLineMoveSpeed: 0.22
-  playerAmmo: 5
+  playerAmmo: 7
   enemiesYPositionFromTop:
   - 1.5
   enemiesMoveSpeed:

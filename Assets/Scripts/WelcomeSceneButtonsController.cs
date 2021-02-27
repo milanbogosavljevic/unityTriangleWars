@@ -9,16 +9,19 @@ public class WelcomeSceneButtonsController : MonoBehaviour
     [SerializeField] Button QuitButton;
     [SerializeField] Button SoundButton;
     [SerializeField] Button MusicButton;
-    [SerializeField] SoundController SoundController;
-    
+    //[SerializeField] SoundController SoundController;
+    private SoundController _soundController;
+
     void Start()
     {
-        float soundAlpha = SoundController.IsSoundOn() ? 1 : 0.3f;
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        float soundAlpha = _soundController.IsSoundOn() ? 1 : 0.3f;
         Color soundColor = SoundButton.image.color;
         soundColor.a = soundAlpha;
         SoundButton.image.color = soundColor;
 
-        float musicAlpha = SoundController.IsMusicOn() ? 1 : 0.3f;
+        float musicAlpha = _soundController.IsMusicOn() ? 1 : 0.3f;
         Color musicColor = MusicButton.image.color;
         musicColor.a = musicAlpha;
         MusicButton.image.color = musicColor;
@@ -41,15 +44,15 @@ public class WelcomeSceneButtonsController : MonoBehaviour
 
     public void SoundButtonClickHandler()
     {
-        SoundController.ToggleSound();
-        float a = SoundController.IsSoundOn() ? 1 : 0.3f;
+        _soundController.ToggleSound();
+        float a = _soundController.IsSoundOn() ? 1 : 0.3f;
         LeanTween.alpha(SoundButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
     }
 
     public void MusicButtonClickHandler()
     {
-        SoundController.ToggleMusic();
-        float a = SoundController.IsMusicOn() ? 1 : 0.3f;
+        _soundController.ToggleMusic();
+        float a = _soundController.IsMusicOn() ? 1 : 0.3f;
         LeanTween.alpha(MusicButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
     }
 }

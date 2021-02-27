@@ -10,26 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
-  m_Name: Level1
+  m_Name: Level9
   m_EditorClassIdentifier: 
-  numberOfEnemies: 1
-  enemyLineMoveSpeed: 0.1
-  playerAmmo: 9
+  numberOfEnemies: 3
+  enemyLineMoveSpeed: 0.15
+  playerAmmo: 15
   enemiesYPositionFromTop:
   - 1.5
+  - 2.5
+  - 3.5
   enemiesMoveSpeed:
-  - 1
-  enemiesCanShoot: 00
+  - 1.8
+  - 2
+  - 2.2
+  enemiesCanShoot: 010100
   enemiesShootingInterval:
-  - 3
+  - 2.5
+  - 3.5
+  - 0
   enemiesMoveLineBy:
-  - 3
+  - 2.5
+  - 1.5
+  - 1
   enemiesBulletSpeed:
-  - 5
+  - 3.5
+  - 3.5
+  - 0
   enemiesSkin:
-  - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  - {fileID: 21300000, guid: a7cda628d9b6b1243b72a4843471d347, type: 3}
+  - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
+  - {fileID: 21300000, guid: cf577d2f76ccb0441b6445a286524ef6, type: 3}
   startingMoveDirection:
+  - left
   - right
-  enemiesPoints: 1e000000
-  enemiesPingPongMove: 01
-  enemiesAlphaAnimation: 00
+  - left
+  enemiesPoints: fa0000009600000064000000
+  enemiesPingPongMove: 000100
+  enemiesAlphaAnimation: 010000

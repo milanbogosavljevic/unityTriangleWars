@@ -23,8 +23,8 @@ MonoBehaviour:
   - 1.5
   enemiesCanShoot: 0101
   enemiesShootingInterval:
-  - 2
-  - 3
+  - 1.8
+  - 2.8
   enemiesMoveLineBy:
   - 2
   - 1.5

@@ -21,9 +21,12 @@ public class Enemy : MonoBehaviour
     private List<EnemyBullet> _bullets = new List<EnemyBullet>();
     private ParticleSystem _explosion;
     private bool _pingPongMove;
+    private SoundController _soundController;
 
     void Awake()
     {
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
 
@@ -167,6 +170,8 @@ public class Enemy : MonoBehaviour
             _bullets.Add(newBullet);
             newBullet.StartMoving();
         }
+
+        _soundController.PlayEnemyShootSound();
     }
 
     public void StartMoving()

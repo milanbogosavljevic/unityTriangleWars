@@ -27,7 +27,7 @@ MonoBehaviour:
   - 0
   enemiesMoveLineBy:
   - 2
-  - 1.5
+  - 1.2
   enemiesBulletSpeed:
   - 0
   - 0
