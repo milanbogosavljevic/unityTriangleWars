@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
     private Stats _stats;
     private SoundController _soundController;
 
+    private int _numberOfLevels;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -54,7 +56,7 @@ public class GameController : MonoBehaviour
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 6;
+        _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _score = 0;
         SetSceneForCurrentLevel();
@@ -104,6 +106,8 @@ public class GameController : MonoBehaviour
 
         ShowLevelNumberAnimation();
         ShootButton.interactable = true;
+
+        _numberOfLevels = LevelsInfo.Length;
     }
 
     private void PauseEnemies(bool pause)
@@ -235,7 +239,16 @@ public class GameController : MonoBehaviour
     {
         WellDoneLabel.gameObject.SetActive(false);
         _currentLevel++;
-        SetSceneForCurrentLevel();
+        if(_currentLevel < _numberOfLevels)
+        {
+            SetSceneForCurrentLevel();
+        }
+        else
+        {
+            _stats.SaveStats();
+            _stats.CheckHighscore(_score);
+            ScenesController.ShowThankYouScene();
+        }
     }
 
     private void ClearEnemies()
@@ -277,6 +290,11 @@ public class GameController : MonoBehaviour
             Player.Fire();
             _stats.PlayerFired();
         }
+        else
+        {
+            _stats.SaveStats();
+            _stats.CheckHighscore(_score);
+        }
     }
 
     public void LineFinished(string lineName)
@@ -313,6 +331,7 @@ public class GameController : MonoBehaviour
     public void EnemyHitsPlayer(float moveLineBy)
     {
         _cameraController.ShakeCamera();
+        _soundController.PlayPlayerHitSound();
 
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
@@ -339,7 +358,7 @@ public class GameController : MonoBehaviour
         _soundController.StopBackgroundMusic();
         Time.timeScale = 1;
         Menu.SetActive(false);
-        ScenesController.ExitLevel();
+        ScenesController.ShowHomeLevel();
     }
 
     public void RestartLevel()

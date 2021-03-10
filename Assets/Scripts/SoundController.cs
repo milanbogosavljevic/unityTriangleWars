@@ -10,6 +10,9 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip EnemyShoot;
     [SerializeField] private AudioClip EnemyHit;
     [SerializeField] private AudioClip PlayerExplosion;
+    [SerializeField] private AudioClip PlayerHit;
+
+    //[SerializeField] private AudioClip[] Sounds;
 
     private bool _musicIsOn;
     private bool _soundIsOn;
@@ -122,4 +125,28 @@ public class SoundController : MonoBehaviour
             SoundsPlayer.PlayOneShot(EnemyShoot, 1);
         }
     }
+
+    public void PlayPlayerHitSound()
+    {
+        if (_soundIsOn)
+        {
+            SoundsPlayer.PlayOneShot(PlayerHit, 1);
+        }
+    }
+
+/*    public void PlaySound(string soundName, float vol)
+    {
+        Debug.Log("play " + soundName);
+        if (_soundIsOn)
+        {
+            for(int i = 0; i < Sounds.Length; i++)
+            {
+                Debug.Log(Sounds[i].name);
+                if(Sounds[i].name == soundName)
+                {
+                    SoundsPlayer.PlayOneShot(Sounds[i], vol);
+                }
+            }
+        }
+    }*/
 }
