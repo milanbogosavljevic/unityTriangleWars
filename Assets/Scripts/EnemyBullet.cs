@@ -12,7 +12,7 @@ public class EnemyBullet : MonoBehaviour
     private bool _moveBullet = false;
     private float _maxDown;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _maxDown = GameBoundaries.DownBoundary;
         gameObject.SetActive(false);

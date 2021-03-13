@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
@@ -45,19 +45,18 @@ public class Enemy : MonoBehaviour
         _shootingInterval = shootingInterval;
         _enemyMoveLineBy = moveLineBy;
         _points = points;
-        _bulletSpeed = bulletSpeed;
-
-        _bullet = Instantiate(EnemyBulletPrefab);
-        _bullet.SetBulletSpeed(_bulletSpeed);
-        _bullet.SetEnemy(this);
-        _bullets.Add(_bullet);
 
         SetSkin(skin);
         StartMoving();
 
         if (_cahShoot)
         {
-            InvokeRepeating("FireBullet", 2f, _shootingInterval);
+            _bulletSpeed = bulletSpeed;
+            _bullet = Instantiate(EnemyBulletPrefab);
+            _bullet.SetBulletSpeed(_bulletSpeed);
+            _bullet.SetEnemy(this);
+            _bullets.Add(_bullet);
+            InvokeRepeating("FireBullet", 5f, _shootingInterval);
         }
 
         _pingPongMove = pingPongMove;
@@ -148,8 +147,6 @@ public class Enemy : MonoBehaviour
 
     void FireBullet()
     {
-        //_bullet.StartMoving();
-
         bool foundBullet = false;
 
         for (int i = 0; i < _bullets.Count; i++)
@@ -169,9 +166,10 @@ public class Enemy : MonoBehaviour
             newBullet.SetEnemy(this);
             _bullets.Add(newBullet);
             newBullet.StartMoving();
+            
         }
 
-        _soundController.PlayEnemyShootSound();
+        //_soundController.PlayEnemyShootSound();
     }
 
     public void StartMoving()
