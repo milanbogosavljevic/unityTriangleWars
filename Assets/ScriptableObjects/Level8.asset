@@ -15,6 +15,10 @@ MonoBehaviour:
   numberOfEnemies: 2
   enemyLineMoveSpeed: 0.22
   playerAmmo: 8
+  playerAmmoToIncrease: 3
+  pauseLineFor: 3
+  pauseEnemiesFor: 3
+  releaseHelpItemIntervalFromTo: 0f00000014000000
   enemiesYPositionFromTop:
   - 1.5
   - 2.8

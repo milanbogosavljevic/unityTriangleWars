@@ -800,6 +800,8 @@ MonoBehaviour:
   EnemyHit: {fileID: 8300000, guid: 4226124bdf87e06499e4648178ff3b19, type: 3}
   PlayerExplosion: {fileID: 8300000, guid: 5a77bb31f0d4afc4a99cda4d8a45dcd0, type: 3}
   PlayerHit: {fileID: 8300000, guid: a135ac4b90ea64941ac925657592ab68, type: 3}
+  ItemCollected: {fileID: 8300000, guid: e960bddfe33690a47a86cc8243b3f670, type: 3}
+  Reload: {fileID: 8300000, guid: 606c8efc819950544b47e5c213c559e3, type: 3}
 --- !u!4 &1857833130
 Transform:
   m_ObjectHideFlags: 0

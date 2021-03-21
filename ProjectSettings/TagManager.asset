@@ -10,6 +10,7 @@ TagManager:
   - enemyExplosion
   - enemyBullet
   - SoundController
+  - helpItem
   layers:
   - Default
   - TransparentFX

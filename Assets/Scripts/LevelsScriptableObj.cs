@@ -6,6 +6,10 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private float enemyLineMoveSpeed;
     [SerializeField] private int playerAmmo;
+    [SerializeField] private int playerAmmoToIncrease;
+    [SerializeField] private int pauseLineFor;
+    [SerializeField] private int pauseEnemiesFor;
+    [SerializeField] private int[] releaseHelpItemIntervalFromTo;
     [SerializeField] private float[] enemiesYPositionFromTop;
     [SerializeField] private float[] enemiesMoveSpeed;
     [SerializeField] private bool[] enemiesCanShoot;
@@ -85,5 +89,25 @@ public class LevelsScriptableObj : ScriptableObject
     public bool[] GetEnemiesAlphaAnimation()
     {
         return enemiesAlphaAnimation;
+    }
+
+    public int GetPlayerAmmoToIncrease()
+    {
+        return playerAmmoToIncrease;
+    }
+
+    public int GetPauseLineFor()
+    {
+        return pauseLineFor;
+    }
+
+    public int GetPauseEnemiesFor()
+    {
+        return pauseEnemiesFor;
+    }
+
+    public int[] GetReleaseHelpItemsInterval()
+    {
+        return releaseHelpItemIntervalFromTo;
     }
 }

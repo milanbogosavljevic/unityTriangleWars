@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Level5
   m_EditorClassIdentifier: 
   numberOfEnemies: 1
-  enemyLineMoveSpeed: 0.22
+  enemyLineMoveSpeed: 0.2
   playerAmmo: 7
+  playerAmmoToIncrease: 1
+  pauseLineFor: 4
+  pauseEnemiesFor: 2
+  releaseHelpItemIntervalFromTo: 0a00000014000000
   enemiesYPositionFromTop:
   - 1.5
   enemiesMoveSpeed:

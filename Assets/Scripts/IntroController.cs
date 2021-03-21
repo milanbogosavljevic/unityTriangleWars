@@ -19,6 +19,7 @@ public class IntroController : MonoBehaviour
     {
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
         StartMainLettersAnimation();
+        //ScenesController.ShowHomeLevel();
     }
 
     void StartMainLettersAnimation()

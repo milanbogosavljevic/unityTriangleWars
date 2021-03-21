@@ -122,6 +122,12 @@ public class Player : MonoBehaviour
         UpdateAmmoText();
     }
 
+    public void IncreaseAmmo(int ammo)
+    {
+        _ammo += ammo; 
+        UpdateAmmoText();
+    }
+
     public bool PlayerCanFire()
     {
         return _ammo > 0;// && !PlayerBullet.isActiveAndEnabled;
@@ -135,6 +141,14 @@ public class Player : MonoBehaviour
             DecreaseAmmo();
             ReleaseBullet();
         //}
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("helpItem"))
+        {
+            GameController.PlayerCollectedItem(collision.gameObject.name);
+        }
     }
 
     public void ShowExplosion()

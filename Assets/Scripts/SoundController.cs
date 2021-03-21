@@ -11,6 +11,8 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip EnemyHit;
     [SerializeField] private AudioClip PlayerExplosion;
     [SerializeField] private AudioClip PlayerHit;
+    [SerializeField] private AudioClip ItemCollected;
+    [SerializeField] private AudioClip Reload;
 
     //[SerializeField] private AudioClip[] Sounds;
 
@@ -131,6 +133,22 @@ public class SoundController : MonoBehaviour
         if (_soundIsOn)
         {
             SoundsPlayer.PlayOneShot(PlayerHit, 1);
+        }
+    }
+
+    public void PlayItemCollectedSound()
+    {
+        if (_soundIsOn)
+        {
+            SoundsPlayer.PlayOneShot(ItemCollected, 1);
+        }
+    }
+
+    public void PlayReloadSound()
+    {
+        if (_soundIsOn)
+        {
+            SoundsPlayer.PlayOneShot(Reload, 1);
         }
     }
 
