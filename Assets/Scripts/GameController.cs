@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject GameoverMenu;
     [SerializeField] Button ShootButton;
     [SerializeField] HelpItemsController HelpItemsController;
+    [SerializeField] MeteorsController MeteorsController;
 
     private int _score;
     private int _currentLevel;
@@ -42,6 +43,8 @@ public class GameController : MonoBehaviour
     private int _pauseLineFor;
     private int _pauseEnemiesFor;
 
+    private bool _levelHasHelItems;
+
     private IEnumerator  PauseEnemyLineCoroutine;
 
     void Update()
@@ -52,26 +55,26 @@ public class GameController : MonoBehaviour
         }
 
         // ONLY DEV VERSION
-        // if(Input.GetKeyDown(KeyCode.A))
-        // {
-        //     MovePlayer("left");
-        // }
-        // if(Input.GetKeyUp(KeyCode.A))
-        // {
-        //     StopPlayer("left");
-        // }
-        // if(Input.GetKeyDown(KeyCode.D))
-        // {
-        //     MovePlayer("right");
-        // }
-        // if(Input.GetKeyUp(KeyCode.D))
-        // {
-        //     StopPlayer("right");
-        // }
-        // if(Input.GetKeyDown(KeyCode.S))
-        // {
-        //     PlayerFired();
-        // }
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            MovePlayer("left");
+        }
+        if(Input.GetKeyUp(KeyCode.A))
+        {
+            StopPlayer("left");
+        }
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            MovePlayer("right");
+        }
+        if(Input.GetKeyUp(KeyCode.D))
+        {
+            StopPlayer("right");
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            PlayerFired();
+        }
         // ONLY DEV VERSION
     }
 
@@ -80,14 +83,14 @@ public class GameController : MonoBehaviour
         GameoverMenu.transform.localScale = new Vector3(0,0,0);
         GameoverMenu.SetActive(false);
 
-        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
+        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 0;
+        _currentLevel = 10;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _score = 0;
         SetSceneForCurrentLevel();
@@ -100,7 +103,7 @@ public class GameController : MonoBehaviour
 
         PauseEnemyLineCoroutine = PauseEnemyLine();
 
-        _soundController.PlayBackgroundMusic();
+        //_soundController.PlayBackgroundMusic();
     }
 
     private void SetSceneForCurrentLevel()
@@ -143,12 +146,30 @@ public class GameController : MonoBehaviour
 
         _numberOfLevels = LevelsInfo.Length;
 
-        _ammoToIncrease = currentLevelInfo.GetPlayerAmmoToIncrease();
-        _pauseLineFor = currentLevelInfo.GetPauseLineFor();
-        _pauseEnemiesFor = currentLevelInfo.GetPauseEnemiesFor();
+        _levelHasHelItems = currentLevelInfo.HasHelpItems();
 
-        HelpItemsController.SetReleaseItemInterval(currentLevelInfo.GetReleaseHelpItemsInterval());
-        HelpItemsController.ActivateItem();
+        if(_levelHasHelItems == true)
+        {
+            _ammoToIncrease = currentLevelInfo.GetPlayerAmmoToIncrease();
+            _pauseLineFor = currentLevelInfo.GetPauseLineFor();
+            _pauseEnemiesFor = currentLevelInfo.GetPauseEnemiesFor();
+
+            HelpItemsController.SetReleaseItemInterval(currentLevelInfo.GetReleaseHelpItemsInterval());
+            HelpItemsController.ActivateItem();
+        }
+
+        int numberOfMeteors = currentLevelInfo.GetNumberOfMeteors();
+        if(numberOfMeteors > 0)
+        {
+            float releaseInterval = currentLevelInfo.GetMeteorsReleaseInterval();
+            float speed = currentLevelInfo.GetMeteorsSpeed();
+
+            MeteorsController.gameObject.SetActive(true);
+            MeteorsController.SetNumberOfMeteors(numberOfMeteors);
+            MeteorsController.SetReleaseInterval(releaseInterval);
+            MeteorsController.SetMeteorsMoveSpeed(speed);
+            MeteorsController.StartReleasingMeteors();
+        }
     }
 
     private void PauseEnemies(bool pause)
@@ -251,14 +272,14 @@ public class GameController : MonoBehaviour
         //GameoverMenu.transform.localScale = new Vector3(1, 1, 1);
         ShootButton.interactable = false;
         Player.ShowExplosion();
-        _soundController.PlayPlayerExplosionSound();
+        //_soundController.PlayPlayerExplosionSound();
         _stats.SaveStats();
         _stats.CheckHighscore(_score);
     }
 
     private void LevelPassed()
     {
-        _soundController.PlayLevelPassedSound();
+        //_soundController.PlayLevelPassedSound();
         ClearEnemies();
         ShowLevelPassedAnimation();
         //_stats.SaveStats();
@@ -327,20 +348,26 @@ public class GameController : MonoBehaviour
     {
         if (Player.PlayerCanFire())
         {
-            _soundController.PlayShootSound();
+            //_soundController.PlayShootSound();
             Player.Fire();
             _stats.PlayerFired();
         }
-        else
-        {
-            _stats.SaveStats();
-            _stats.CheckHighscore(_score);
-        }
+        // else
+        // {
+        //     _stats.SaveStats();
+        //     _stats.CheckHighscore(_score);
+        // }
     }
 
     public void LineFinished(string lineName)
     {
-        HelpItemsController.RemoveItem();
+        if(_levelHasHelItems == true)
+        {
+            Debug.Log("line finished");
+            HelpItemsController.RemoveItem();
+            HelpItemsController.StopReleasingItems();
+        }
+        
         PlayerLine.MoveLine(false);
         EnemyLine.MoveLine(false);
         if(lineName == "playerLine")
@@ -356,7 +383,7 @@ public class GameController : MonoBehaviour
     public void PlayerHitsEnemy(float moveLineBy, Vector3 enemyPosition, int enemyPoints)
     {
         _cameraController.ShakeCamera();
-        _soundController.PlayEnemyHitSound();
+        //_soundController.PlayEnemyHitSound();
 
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
@@ -373,7 +400,7 @@ public class GameController : MonoBehaviour
     public void EnemyHitsPlayer(float moveLineBy)
     {
         _cameraController.ShakeCamera();
-        _soundController.PlayPlayerHitSound();
+        //_soundController.PlayPlayerHitSound();
 
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
@@ -397,7 +424,9 @@ public class GameController : MonoBehaviour
 
     public void ExitToHome()
     {
-        _soundController.StopBackgroundMusic();
+        _stats.SaveStats();
+        _stats.CheckHighscore(_score);
+        //_soundController.StopBackgroundMusic();
         Time.timeScale = 1;
         Menu.SetActive(false);
         ScenesController.ShowHomeLevel();
@@ -405,6 +434,8 @@ public class GameController : MonoBehaviour
 
     public void RestartLevel()
     {
+        _stats.SaveStats();
+        _stats.CheckHighscore(_score);
         Time.timeScale = 1;
         Menu.SetActive(false);
         ScenesController.RestartLevel();
@@ -412,13 +443,13 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedAmmo()
     {
-        _soundController.PlayReloadSound();
+        //_soundController.PlayReloadSound();
         Player.IncreaseAmmo(_ammoToIncrease);
     }
 
     private void PlayerCollectedPauseLine()
     {
-        _soundController.PlayItemCollectedSound();
+        //_soundController.PlayItemCollectedSound();
         StopCoroutine(PauseEnemyLineCoroutine);
         PauseEnemyLineCoroutine = PauseEnemyLine();
         StartCoroutine(PauseEnemyLineCoroutine);
@@ -426,7 +457,7 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedPauseEnemies()
     {
-        _soundController.PlayItemCollectedSound();
+        //_soundController.PlayItemCollectedSound();
         StartCoroutine(PauseAndReleaseEnemiesMove());
     }
 
@@ -453,5 +484,7 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    PROVERITI ELSE U PlayerFired
+    RESITI PROBLEM SA ROTACIJOM METEORA
+    NAPRAVITI TEXT POLJE ZA BROJ METEORA
+    SMISLITI GAMEPLAY LOGIKU ZA METEORE - KAKO UTICU NA POMERANJE LINIJE
  */

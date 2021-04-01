@@ -6,9 +6,13 @@ public class LevelsScriptableObj : ScriptableObject
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private float enemyLineMoveSpeed;
     [SerializeField] private int playerAmmo;
+    [SerializeField] private bool hasHelpItems;
     [SerializeField] private int playerAmmoToIncrease;
     [SerializeField] private int pauseLineFor;
     [SerializeField] private int pauseEnemiesFor;
+    [SerializeField] private int numberOfMeteors;
+    [SerializeField] private float meteorsReleaseInterval;
+    [SerializeField] private float meteorsMoveSpeed;
     [SerializeField] private int[] releaseHelpItemIntervalFromTo;
     [SerializeField] private float[] enemiesYPositionFromTop;
     [SerializeField] private float[] enemiesMoveSpeed;
@@ -109,5 +113,25 @@ public class LevelsScriptableObj : ScriptableObject
     public int[] GetReleaseHelpItemsInterval()
     {
         return releaseHelpItemIntervalFromTo;
+    }
+
+    public int GetNumberOfMeteors()
+    {
+        return numberOfMeteors;
+    }
+
+    public float GetMeteorsReleaseInterval()
+    {
+        return meteorsReleaseInterval;
+    }
+
+    public float GetMeteorsSpeed()
+    {
+        return meteorsMoveSpeed;
+    }
+
+    public bool HasHelpItems()
+    {
+        return hasHelpItems;
     }
 }

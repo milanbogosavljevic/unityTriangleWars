@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
+  m_Name: Level11
+  m_EditorClassIdentifier: 
+  numberOfEnemies: 0
+  enemyLineMoveSpeed: 0.15
+  playerAmmo: 0
+  hasHelpItems: 0
+  playerAmmoToIncrease: 0
+  pauseLineFor: 0
+  pauseEnemiesFor: 0
+  numberOfMeteors: 30
+  meteorsReleaseInterval: 1
+  meteorsMoveSpeed: 2.5
+  releaseHelpItemIntervalFromTo: 
+  enemiesYPositionFromTop: []
+  enemiesMoveSpeed: []
+  enemiesCanShoot: 
+  enemiesShootingInterval: []
+  enemiesMoveLineBy: []
+  enemiesBulletSpeed: []
+  enemiesSkin: []
+  startingMoveDirection: []
+  enemiesPoints: 
+  enemiesPingPongMove: 
+  enemiesAlphaAnimation: 

@@ -461,6 +461,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &467531997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467531999}
+  - component: {fileID: 467531998}
+  m_Layer: 0
+  m_Name: MeteorsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &467531998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467531997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8b8aeddbe85354593d502fb8657a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeteorPrefab: {fileID: 6483051174537437336, guid: 428301a653fc63d4589b86a798f6b4cc, type: 3}
+--- !u!4 &467531999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467531997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,6 +1364,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3fb10ca4292f61a4f9fd72992e216f2d, type: 2}
   - {fileID: 11400000, guid: 6657f626f8fa46a4d90aa776fb315c82, type: 2}
   - {fileID: 11400000, guid: 9ed9e3f849d5f6e47b35ddf6a9998520, type: 2}
+  - {fileID: 11400000, guid: 0e14e124615a52d47b651dc61eb1823c, type: 2}
   Player: {fileID: 965212880}
   EnemyPrefab: {fileID: 6251132217165589843, guid: 13c31d82eb0d71b4391dbb5042d74170, type: 3}
   PlayerLine: {fileID: 521586324}
@@ -1335,6 +1380,7 @@ MonoBehaviour:
   GameoverMenu: {fileID: 1863211710}
   ShootButton: {fileID: 166085188}
   HelpItemsController: {fileID: 1974530111}
+  MeteorsController: {fileID: 467531998}
 --- !u!4 &1156092373
 Transform:
   m_ObjectHideFlags: 0
