@@ -148,6 +148,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("helpItem"))
         {
             GameController.PlayerCollectedItem(collision.gameObject.name);
+        }else if(collision.gameObject.CompareTag("meteor"))
+        {
+            GameController.MeteorHitsPlayer();
         }
     }
 

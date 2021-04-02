@@ -12,6 +12,10 @@ public class MeteorsController : MonoBehaviour
     private float _maxLeft;
     private float _maxRight;
     private float _meteorMoveSpeed;
+
+    private float _meteorMoveLineBy;
+
+    private int _meteorPoints;
     
     void Start()
     {
@@ -33,6 +37,26 @@ public class MeteorsController : MonoBehaviour
     public void SetMeteorsMoveSpeed(float speed)
     {
         _meteorMoveSpeed = speed;
+    }
+
+    public void SetMeteorMoveLineBy(float moveBy)
+    {
+        _meteorMoveLineBy = moveBy;
+    }
+
+    public void SetMeteorPoints(int points)
+    {
+        _meteorPoints = points;
+    }
+
+    public float GetMeteorMoveLineBy()
+    {
+        return _meteorMoveLineBy;
+    }
+
+    public int GetMeteorPoints()
+    {
+        return _meteorPoints;
     }
 
     public void StartReleasingMeteors()

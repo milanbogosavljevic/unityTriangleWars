@@ -7,9 +7,11 @@ public class Meteor : MonoBehaviour
     private float _maxDown;
     private float _meteorSpeed = 0f;
     private float angle = 0f;
-    private float _rotationSpeed = 0.5f;
+    private float _rotationSpeed = 0f;
+    GameController GameController;
     void Start()
     {
+        GameController = FindObjectOfType<GameController>();
         _maxDown = GameBoundaries.DownBoundary - 1f;
     }
 
@@ -19,24 +21,18 @@ public class Meteor : MonoBehaviour
         if (transform.position.y > _maxDown)
         {
             transform.position += Time.deltaTime * _meteorSpeed * Vector3.down;
-            angle += Time.deltaTime * _meteorSpeed;
-            if(angle > 360f)
-            {
-                angle = 0f;
-            }
-            //transform.Rotate(0, 0, angle);
-            transform.localEulerAngles = new Vector3(0,0,angle);
-            Debug.Log("update " + angle);
+            transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
         }
         else
         {
             gameObject.SetActive(false);
+            GameController.PlayerEscapesMeteor();
         }
     }
 
     public void SetMeteorSpeed(float speed)
     {
         _meteorSpeed = speed;
-        //_rotationSpeed = speed * 0.05f;
+        _rotationSpeed = speed * 30f;
     }
 }

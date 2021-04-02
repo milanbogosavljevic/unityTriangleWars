@@ -168,6 +168,8 @@ public class GameController : MonoBehaviour
             MeteorsController.SetNumberOfMeteors(numberOfMeteors);
             MeteorsController.SetReleaseInterval(releaseInterval);
             MeteorsController.SetMeteorsMoveSpeed(speed);
+            MeteorsController.SetMeteorMoveLineBy(currentLevelInfo.GetMeteorMoveLineBy());
+            MeteorsController.SetMeteorPoints(currentLevelInfo.GetMeteorPoints());
             MeteorsController.StartReleasingMeteors();
         }
     }
@@ -397,6 +399,23 @@ public class GameController : MonoBehaviour
         _stats.EnemyHit();
     }
 
+    public void PlayerEscapesMeteor()
+    {
+        Vector3 ghostPosition = PlayerGhostLine.transform.position;
+        float currentGhostPosition = ghostPosition.x;
+        currentGhostPosition -= (_ghostLineMovingMultiplier * MeteorsController.GetMeteorMoveLineBy());
+        PlayerGhostLine.transform.position = new Vector3(currentGhostPosition, ghostPosition.y, ghostPosition.z);
+        PlayerLine.MoveLine(true);
+
+        UpdateScore(MeteorsController.GetMeteorPoints());
+        ShowPointsWon(MeteorsController.GetMeteorPoints(), new Vector3(0,0,0));
+    }
+
+    public void MeteorHitsPlayer()
+    {
+        EnemyHitsPlayer(MeteorsController.GetMeteorMoveLineBy());
+    }
+
     public void EnemyHitsPlayer(float moveLineBy)
     {
         _cameraController.ShakeCamera();
@@ -484,7 +503,6 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    RESITI PROBLEM SA ROTACIJOM METEORA
-    NAPRAVITI TEXT POLJE ZA BROJ METEORA
-    SMISLITI GAMEPLAY LOGIKU ZA METEORE - KAKO UTICU NA POMERANJE LINIJE
+    POVECATI BROJ METEORA, OVAKO JE SUVISE LAKO
+    OCISTITI SVE METEORE KADA LINIJA ZAVRSI TJ KADA JE LEVEL PASSED
  */

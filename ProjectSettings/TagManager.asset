@@ -11,6 +11,7 @@ TagManager:
   - enemyBullet
   - SoundController
   - helpItem
+  - meteor
   layers:
   - Default
   - TransparentFX

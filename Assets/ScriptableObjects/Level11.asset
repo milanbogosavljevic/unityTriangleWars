@@ -22,6 +22,8 @@ MonoBehaviour:
   numberOfMeteors: 30
   meteorsReleaseInterval: 1
   meteorsMoveSpeed: 2.5
+  meteorsMoveLineBy: 1
+  meteorPoints: 50
   releaseHelpItemIntervalFromTo: 
   enemiesYPositionFromTop: []
   enemiesMoveSpeed: []

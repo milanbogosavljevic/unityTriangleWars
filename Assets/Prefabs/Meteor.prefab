@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6483051174537437336}
   m_Layer: 0
   m_Name: Meteor
-  m_TagString: Untagged
+  m_TagString: meteor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005f868b0f225eb4db2d7a48a55f2769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameController: {fileID: 0}
