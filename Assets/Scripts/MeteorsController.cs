@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeteorsController : MonoBehaviour
 {
-    private int _numberOfMeteors;
     private float _releaseInterval;
     [SerializeField] Meteor MeteorPrefab;
     private List<Meteor> _meteors = new List<Meteor>();
@@ -24,9 +23,13 @@ public class MeteorsController : MonoBehaviour
         _maxRight = GameBoundaries.RightBoundary; 
     }
 
-    public void SetNumberOfMeteors(int number)
+    public void StopAndDeleteMeteors()
     {
-        _numberOfMeteors = number;
+        CancelInvoke();
+        for(int i = 0; i < _meteors.Count; i++)
+        {
+            Destroy(_meteors[i].gameObject);
+        }
     }
 
     public void SetReleaseInterval(float interval)
@@ -61,46 +64,39 @@ public class MeteorsController : MonoBehaviour
 
     public void StartReleasingMeteors()
     {
-        InvokeRepeating("ReleaseMeteor", 0f, _releaseInterval);
+        InvokeRepeating("ReleaseMeteor", 3f, _releaseInterval);
     }
 
     private void ReleaseMeteor()
     {
-        _numberOfMeteors--;
-        if(_numberOfMeteors > -1)
-        {
-            bool foundMeteor = false;
-            float x = Random.Range(_maxLeft, _maxRight);
-            float y = _maxUp;
-            float randomScale = Random.Range(0.3f, 0.6f);
-            Vector3 scale = new Vector3(randomScale, randomScale, randomScale);
-            float speed = _meteorMoveSpeed / randomScale;
+        bool foundMeteor = false;
+        float x = Random.Range(_maxLeft, _maxRight);
+        float y = _maxUp;
+        float randomScale = Random.Range(0.3f, 0.6f);
+        Vector3 scale = new Vector3(randomScale, randomScale, randomScale);
+        float speed = _meteorMoveSpeed / randomScale;
 
-            for(int i = 0; i < _meteors.Count; i++)
-            {
-                if(!_meteors[i].gameObject.activeSelf)
-                {
-                    foundMeteor = true;
-                    
-                    _meteors[i].transform.position = new Vector2(x, y);
-                    _meteors[i].transform.localScale = scale;
-                    _meteors[i].SetMeteorSpeed(speed);
-                    _meteors[i].gameObject.SetActive(true);
-                    break;
-                }
-            }
-
-            if(!foundMeteor)
-            {
-                Meteor meteor = Instantiate(MeteorPrefab);
-                meteor.SetMeteorSpeed(speed);
-                _meteors.Add(meteor);
-                meteor.transform.position = new Vector2(x, y);
-                meteor.transform.localScale = scale;
-            }
-        }else
+        for(int i = 0; i < _meteors.Count; i++)
         {
-            CancelInvoke();
+            if(!_meteors[i].gameObject.activeSelf)
+            {
+                foundMeteor = true;
+                
+                _meteors[i].transform.position = new Vector2(x, y);
+                _meteors[i].transform.localScale = scale;
+                _meteors[i].SetMeteorSpeed(speed);
+                _meteors[i].gameObject.SetActive(true);
+                break;
+            }
+        }
+
+        if(!foundMeteor)
+        {
+            Meteor meteor = Instantiate(MeteorPrefab);
+            meteor.SetMeteorSpeed(speed);
+            _meteors.Add(meteor);
+            meteor.transform.position = new Vector2(x, y);
+            meteor.transform.localScale = scale;
         }
     }
 }
