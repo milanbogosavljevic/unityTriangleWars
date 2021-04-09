@@ -30,6 +30,7 @@ public class MeteorsController : MonoBehaviour
         {
             Destroy(_meteors[i].gameObject);
         }
+        _meteors = new List<Meteor>();
     }
 
     public void SetReleaseInterval(float interval)

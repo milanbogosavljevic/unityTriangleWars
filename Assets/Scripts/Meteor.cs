@@ -9,6 +9,7 @@ public class Meteor : MonoBehaviour
     private float angle = 0f;
     private float _rotationSpeed = 0f;
     GameController GameController;
+    [SerializeField] ParticleSystem ExplosionPrefab;
     void Start()
     {
         GameController = FindObjectOfType<GameController>();
@@ -34,5 +35,16 @@ public class Meteor : MonoBehaviour
     {
         _meteorSpeed = speed;
         _rotationSpeed = speed * 30f;
+    }
+
+    public void Explode()
+    {
+        gameObject.SetActive(false);
+        var explosion = Instantiate(ExplosionPrefab);
+        explosion.gameObject.GetComponent<ExplosionController>().ChangeParticleSkin(gameObject.GetComponent<SpriteRenderer>().sprite);
+        explosion.transform.position = transform.position;
+        explosion.Play();
+        var main = explosion.main;
+        main.stopAction = ParticleSystemStopAction.Destroy;
     }
 }

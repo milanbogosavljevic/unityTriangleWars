@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
             GameController.PlayerCollectedItem(collision.gameObject.name);
         }else if(collision.gameObject.CompareTag("meteor"))
         {
-            GameController.MeteorHitsPlayer();
+            GameController.MeteorHitsPlayer(collision.gameObject);
         }
     }
 

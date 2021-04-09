@@ -10,36 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
-  m_Name: Level5
+  m_Name: Level15
   m_EditorClassIdentifier: 
   numberOfEnemies: 1
-  enemyLineMoveSpeed: 0.2
-  playerAmmo: 7
-  hasHelpItems: 0
+  enemyLineMoveSpeed: 0.1
+  playerAmmo: 11
+  hasHelpItems: 1
   hasMeteors: 0
-  playerAmmoToIncrease: 1
-  pauseLineFor: 4
-  pauseEnemiesFor: 2
+  playerAmmoToIncrease: 3
+  pauseLineFor: 3
+  pauseEnemiesFor: 3
   meteorsReleaseInterval: 0
   meteorsMoveSpeed: 0
   meteorsMoveLineBy: 0
   meteorPoints: 0
-  releaseHelpItemIntervalFromTo: 0a0000000f000000
+  releaseHelpItemIntervalFromTo: 050000000a000000
   enemiesYPositionFromTop:
-  - 1.5
+  - 2
   enemiesMoveSpeed:
-  - 3
-  enemiesCanShoot: 00
+  - 3.2
+  enemiesCanShoot: 01
   enemiesShootingInterval:
-  - 0
+  - 1
   enemiesMoveLineBy:
-  - 3
+  - 1.5
   enemiesBulletSpeed:
-  - 0
+  - 5
   enemiesSkin:
-  - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
+  - {fileID: 21300000, guid: 7fbcce627759d4648b1511db0b9f5e27, type: 3}
   startingMoveDirection:
-  - right
-  enemiesPoints: 96000000
-  enemiesPingPongMove: 01
-  enemiesAlphaAnimation: 00
+  - left
+  enemiesPoints: c2010000
+  enemiesPingPongMove: 00
+  enemiesAlphaAnimation: 01

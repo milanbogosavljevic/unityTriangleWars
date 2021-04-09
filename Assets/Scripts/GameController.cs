@@ -365,7 +365,6 @@ public class GameController : MonoBehaviour
     {
         if(_levelHasHelItems == true)
         {
-            Debug.Log("line finished");
             HelpItemsController.RemoveItem();
             HelpItemsController.StopReleasingItems();
         }
@@ -414,11 +413,12 @@ public class GameController : MonoBehaviour
         PlayerLine.MoveLine(true);
 
         UpdateScore(MeteorsController.GetMeteorPoints());
-        ShowPointsWon(MeteorsController.GetMeteorPoints(), new Vector3(0,0,0));
+        //ShowPointsWon(MeteorsController.GetMeteorPoints(), new Vector3(0,0,0));
     }
 
-    public void MeteorHitsPlayer()
+    public void MeteorHitsPlayer(GameObject meteor)
     {
+        meteor.GetComponent<Meteor>().Explode();
         float doubleMove = MeteorsController.GetMeteorMoveLineBy() * 3f;// mnozi se zato sto je previse lako
         EnemyHitsPlayer(doubleMove);
     }
@@ -510,6 +510,5 @@ public class GameController : MonoBehaviour
 }
 /*
  TODO
-    POVECATI BROJ METEORA, OVAKO JE SUVISE LAKO
-    OCISTITI SVE METEORE KADA LINIJA ZAVRSI TJ KADA JE LEVEL PASSED
+    
  */

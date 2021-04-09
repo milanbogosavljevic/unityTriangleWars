@@ -16,13 +16,15 @@ MonoBehaviour:
   enemyLineMoveSpeed: 0.12
   playerAmmo: 10
   hasHelpItems: 1
+  hasMeteors: 0
   playerAmmoToIncrease: 3
   pauseLineFor: 3
   pauseEnemiesFor: 2
-  numberOfMeteors: 0
   meteorsReleaseInterval: 0
   meteorsMoveSpeed: 0
-  releaseHelpItemIntervalFromTo: 0a00000014000000
+  meteorsMoveLineBy: 0
+  meteorPoints: 0
+  releaseHelpItemIntervalFromTo: 0a0000000f000000
   enemiesYPositionFromTop:
   - 1.5
   - 2.8
