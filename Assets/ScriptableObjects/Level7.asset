@@ -12,35 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
   m_Name: Level7
   m_EditorClassIdentifier: 
-  numberOfEnemies: 2
-  enemyLineMoveSpeed: 0.2
-  playerAmmo: 8
-  playerAmmoToIncrease: 3
-  pauseLineFor: 2
+  numberOfEnemies: 1
+  enemyLineMoveSpeed: 0.3
+  playerAmmo: 2
+  hasHelpItems: 0
+  hasMeteors: 0
+  playerAmmoToIncrease: 1
+  pauseLineFor: 3
   pauseEnemiesFor: 2
-  releaseHelpItemIntervalFromTo: 0a00000014000000
+  meteorsReleaseInterval: 0
+  meteorsMoveSpeed: 0
+  meteorsMoveLineBy: 0
+  meteorPoints: 0
+  releaseHelpItemIntervalFromTo: 050000000f000000
   enemiesYPositionFromTop:
   - 1.5
-  - 2.8
   enemiesMoveSpeed:
-  - 2
-  - 1.5
-  enemiesCanShoot: 0101
+  - 3
+  enemiesCanShoot: 00
   enemiesShootingInterval:
-  - 1.8
-  - 2.8
+  - 0
   enemiesMoveLineBy:
-  - 1.8
-  - 1.5
+  - 12
   enemiesBulletSpeed:
-  - 3
-  - 3
+  - 0
   enemiesSkin:
-  - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
-  - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  - {fileID: 21300000, guid: a7cda628d9b6b1243b72a4843471d347, type: 3}
   startingMoveDirection:
   - left
-  - right
-  enemiesPoints: 640000007d000000
-  enemiesPingPongMove: 0101
-  enemiesAlphaAnimation: 0000
+  enemiesPoints: c8000000
+  enemiesPingPongMove: 00
+  enemiesAlphaAnimation: 00

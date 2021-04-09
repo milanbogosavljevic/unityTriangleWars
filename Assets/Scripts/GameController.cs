@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
     private int _pauseEnemiesFor;
 
     private bool _levelHasHelItems;
+    private bool _levelHasMeteors;
 
     private IEnumerator  PauseEnemyLineCoroutine;
 
@@ -55,26 +56,26 @@ public class GameController : MonoBehaviour
         }
 
         // ONLY DEV VERSION
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            MovePlayer("left");
-        }
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            StopPlayer("left");
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            MovePlayer("right");
-        }
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            StopPlayer("right");
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            PlayerFired();
-        }
+        // if(Input.GetKeyDown(KeyCode.A))
+        // {
+        //     MovePlayer("left");
+        // }
+        // if(Input.GetKeyUp(KeyCode.A))
+        // {
+        //     StopPlayer("left");
+        // }
+        // if(Input.GetKeyDown(KeyCode.D))
+        // {
+        //     MovePlayer("right");
+        // }
+        // if(Input.GetKeyUp(KeyCode.D))
+        // {
+        //     StopPlayer("right");
+        // }
+        // if(Input.GetKeyDown(KeyCode.S))
+        // {
+        //     PlayerFired();
+        // }
         // ONLY DEV VERSION
     }
 
@@ -83,14 +84,14 @@ public class GameController : MonoBehaviour
         GameoverMenu.transform.localScale = new Vector3(0,0,0);
         GameoverMenu.SetActive(false);
 
-        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;
         _maxDown = GameBoundaries.DownBoundary;
 
         _cameraController = Camera.main.GetComponent<CameraSizeController>();
-        _currentLevel = 10;
+        _currentLevel = 0;
         _ghostLineMovingMultiplier = Camera.main.orthographicSize / 10;
         _score = 0;
         SetSceneForCurrentLevel();
@@ -103,7 +104,7 @@ public class GameController : MonoBehaviour
 
         PauseEnemyLineCoroutine = PauseEnemyLine();
 
-        //_soundController.PlayBackgroundMusic();
+        _soundController.PlayBackgroundMusic();
     }
 
     private void SetSceneForCurrentLevel()
@@ -158,14 +159,13 @@ public class GameController : MonoBehaviour
             HelpItemsController.ActivateItem();
         }
 
-        int numberOfMeteors = currentLevelInfo.GetNumberOfMeteors();
-        if(numberOfMeteors > 0)
+        _levelHasMeteors = currentLevelInfo.HasMeteors();
+        if(_levelHasMeteors)
         {
             float releaseInterval = currentLevelInfo.GetMeteorsReleaseInterval();
             float speed = currentLevelInfo.GetMeteorsSpeed();
 
             MeteorsController.gameObject.SetActive(true);
-            MeteorsController.SetNumberOfMeteors(numberOfMeteors);
             MeteorsController.SetReleaseInterval(releaseInterval);
             MeteorsController.SetMeteorsMoveSpeed(speed);
             MeteorsController.SetMeteorMoveLineBy(currentLevelInfo.GetMeteorMoveLineBy());
@@ -274,17 +274,17 @@ public class GameController : MonoBehaviour
         //GameoverMenu.transform.localScale = new Vector3(1, 1, 1);
         ShootButton.interactable = false;
         Player.ShowExplosion();
-        //_soundController.PlayPlayerExplosionSound();
+        _soundController.PlayPlayerExplosionSound();
         _stats.SaveStats();
         _stats.CheckHighscore(_score);
     }
 
     private void LevelPassed()
     {
-        //_soundController.PlayLevelPassedSound();
+        _soundController.PlayLevelPassedSound();
         ClearEnemies();
         ShowLevelPassedAnimation();
-        //_stats.SaveStats();
+        _stats.SaveStats();
     }
 
     private void ShowLevelPassedAnimation()
@@ -350,7 +350,7 @@ public class GameController : MonoBehaviour
     {
         if (Player.PlayerCanFire())
         {
-            //_soundController.PlayShootSound();
+            _soundController.PlayShootSound();
             Player.Fire();
             _stats.PlayerFired();
         }
@@ -369,6 +369,12 @@ public class GameController : MonoBehaviour
             HelpItemsController.RemoveItem();
             HelpItemsController.StopReleasingItems();
         }
+
+        if(_levelHasMeteors)
+        {
+            MeteorsController.StopAndDeleteMeteors();
+            MeteorsController.gameObject.SetActive(false);
+        }
         
         PlayerLine.MoveLine(false);
         EnemyLine.MoveLine(false);
@@ -385,7 +391,7 @@ public class GameController : MonoBehaviour
     public void PlayerHitsEnemy(float moveLineBy, Vector3 enemyPosition, int enemyPoints)
     {
         _cameraController.ShakeCamera();
-        //_soundController.PlayEnemyHitSound();
+        _soundController.PlayEnemyHitSound();
 
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
@@ -413,13 +419,14 @@ public class GameController : MonoBehaviour
 
     public void MeteorHitsPlayer()
     {
-        EnemyHitsPlayer(MeteorsController.GetMeteorMoveLineBy());
+        float doubleMove = MeteorsController.GetMeteorMoveLineBy() * 3f;// mnozi se zato sto je previse lako
+        EnemyHitsPlayer(doubleMove);
     }
 
     public void EnemyHitsPlayer(float moveLineBy)
     {
         _cameraController.ShakeCamera();
-        //_soundController.PlayPlayerHitSound();
+        _soundController.PlayPlayerHitSound();
 
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
@@ -445,7 +452,7 @@ public class GameController : MonoBehaviour
     {
         _stats.SaveStats();
         _stats.CheckHighscore(_score);
-        //_soundController.StopBackgroundMusic();
+        _soundController.StopBackgroundMusic();
         Time.timeScale = 1;
         Menu.SetActive(false);
         ScenesController.ShowHomeLevel();
@@ -462,13 +469,13 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedAmmo()
     {
-        //_soundController.PlayReloadSound();
+        _soundController.PlayReloadSound();
         Player.IncreaseAmmo(_ammoToIncrease);
     }
 
     private void PlayerCollectedPauseLine()
     {
-        //_soundController.PlayItemCollectedSound();
+        _soundController.PlayItemCollectedSound();
         StopCoroutine(PauseEnemyLineCoroutine);
         PauseEnemyLineCoroutine = PauseEnemyLine();
         StartCoroutine(PauseEnemyLineCoroutine);
@@ -476,7 +483,7 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedPauseEnemies()
     {
-        //_soundController.PlayItemCollectedSound();
+        _soundController.PlayItemCollectedSound();
         StartCoroutine(PauseAndReleaseEnemiesMove());
     }
 

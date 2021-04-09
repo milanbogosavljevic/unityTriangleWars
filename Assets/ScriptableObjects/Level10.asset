@@ -13,45 +13,47 @@ MonoBehaviour:
   m_Name: Level10
   m_EditorClassIdentifier: 
   numberOfEnemies: 3
-  enemyLineMoveSpeed: 0.2
-  playerAmmo: 8
-  hasHelpItems: 1
+  enemyLineMoveSpeed: 0.15
+  playerAmmo: 12
+  hasHelpItems: 0
+  hasMeteors: 0
   playerAmmoToIncrease: 3
-  pauseLineFor: 2
-  pauseEnemiesFor: 2
-  numberOfMeteors: 0
+  pauseLineFor: 3
+  pauseEnemiesFor: 3
   meteorsReleaseInterval: 0
   meteorsMoveSpeed: 0
-  releaseHelpItemIntervalFromTo: 0a00000014000000
+  meteorsMoveLineBy: 0
+  meteorPoints: 0
+  releaseHelpItemIntervalFromTo: 0a0000000f000000
   enemiesYPositionFromTop:
   - 1.5
-  - 2.3
-  - 3.1
+  - 2.5
+  - 3.5
   enemiesMoveSpeed:
-  - 2.3
-  - 1.9
-  - 1
-  enemiesCanShoot: 000001
+  - 1.8
+  - 2
+  - 2.2
+  enemiesCanShoot: 010100
   enemiesShootingInterval:
+  - 2.5
+  - 3.5
   - 0
-  - 0
-  - 2
   enemiesMoveLineBy:
-  - 2.3
-  - 2
-  - 0.8
+  - 2.5
+  - 1.5
+  - 1
   enemiesBulletSpeed:
+  - 3.5
+  - 3.5
   - 0
-  - 0
-  - 3
   enemiesSkin:
-  - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
-  - {fileID: 21300000, guid: f5682b5bc93c5374198eaee37f2e426b, type: 3}
+  - {fileID: 21300000, guid: a7cda628d9b6b1243b72a4843471d347, type: 3}
   - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
+  - {fileID: 21300000, guid: cf577d2f76ccb0441b6445a286524ef6, type: 3}
   startingMoveDirection:
   - left
+  - right
   - left
-  - left
-  enemiesPoints: fa000000c800000096000000
-  enemiesPingPongMove: 010101
-  enemiesAlphaAnimation: 000100
+  enemiesPoints: fa0000009600000064000000
+  enemiesPingPongMove: 000100
+  enemiesAlphaAnimation: 010000

@@ -12,27 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
   m_Name: Level11
   m_EditorClassIdentifier: 
-  numberOfEnemies: 0
-  enemyLineMoveSpeed: 0.15
-  playerAmmo: 0
-  hasHelpItems: 0
-  playerAmmoToIncrease: 0
-  pauseLineFor: 0
-  pauseEnemiesFor: 0
-  numberOfMeteors: 30
-  meteorsReleaseInterval: 1
-  meteorsMoveSpeed: 2.5
-  meteorsMoveLineBy: 1
-  meteorPoints: 50
-  releaseHelpItemIntervalFromTo: 
-  enemiesYPositionFromTop: []
-  enemiesMoveSpeed: []
-  enemiesCanShoot: 
-  enemiesShootingInterval: []
-  enemiesMoveLineBy: []
-  enemiesBulletSpeed: []
-  enemiesSkin: []
-  startingMoveDirection: []
-  enemiesPoints: 
-  enemiesPingPongMove: 
-  enemiesAlphaAnimation: 
+  numberOfEnemies: 3
+  enemyLineMoveSpeed: 0.2
+  playerAmmo: 8
+  hasHelpItems: 1
+  hasMeteors: 0
+  playerAmmoToIncrease: 3
+  pauseLineFor: 2
+  pauseEnemiesFor: 2
+  meteorsReleaseInterval: 0
+  meteorsMoveSpeed: 0
+  meteorsMoveLineBy: 0
+  meteorPoints: 0
+  releaseHelpItemIntervalFromTo: 0a00000014000000
+  enemiesYPositionFromTop:
+  - 1.5
+  - 2.3
+  - 3.1
+  enemiesMoveSpeed:
+  - 2.3
+  - 1.9
+  - 1
+  enemiesCanShoot: 000001
+  enemiesShootingInterval:
+  - 0
+  - 0
+  - 2
+  enemiesMoveLineBy:
+  - 2.3
+  - 2
+  - 0.8
+  enemiesBulletSpeed:
+  - 0
+  - 0
+  - 3
+  enemiesSkin:
+  - {fileID: 21300000, guid: 1ba8a919fecf4d0489d2dab90849f518, type: 3}
+  - {fileID: 21300000, guid: f5682b5bc93c5374198eaee37f2e426b, type: 3}
+  - {fileID: 21300000, guid: 1099a990bcfa5404597ec31bdc719282, type: 3}
+  startingMoveDirection:
+  - left
+  - left
+  - left
+  enemiesPoints: fa000000c800000096000000
+  enemiesPingPongMove: 010101
+  enemiesAlphaAnimation: 000100

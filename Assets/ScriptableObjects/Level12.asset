@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d091a3bfb39b5574abeb1715c54ed66d, type: 3}
-  m_Name: Level6
+  m_Name: Level12
   m_EditorClassIdentifier: 
   numberOfEnemies: 0
-  enemyLineMoveSpeed: 0.25
+  enemyLineMoveSpeed: 0.2
   playerAmmo: 0
   hasHelpItems: 0
   hasMeteors: 1
   playerAmmoToIncrease: 0
   pauseLineFor: 0
   pauseEnemiesFor: 0
-  meteorsReleaseInterval: 0.5
-  meteorsMoveSpeed: 2.5
-  meteorsMoveLineBy: 0.4
-  meteorPoints: 50
+  meteorsReleaseInterval: 0.25
+  meteorsMoveSpeed: 2.8
+  meteorsMoveLineBy: 0.14
+  meteorPoints: 65
   releaseHelpItemIntervalFromTo: 
   enemiesYPositionFromTop: []
   enemiesMoveSpeed: []
