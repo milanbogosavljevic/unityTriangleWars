@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
@@ -169,7 +169,7 @@ public class Enemy : MonoBehaviour
             
         }
 
-        _soundController.PlayEnemyShootSound();
+        //_soundController.PlayEnemyShootSound();
     }
 
     public void StartMoving()

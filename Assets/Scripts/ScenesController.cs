@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public static class ScenesController
 {
+    private static int ACHIEVEMENTS_SCENE = 5;
     private static int THANKYOU_SCENE = 4;
     private static int GAME_SCENE = 3;
     private static int HOME_SCENE = 2;
@@ -35,5 +36,10 @@ public static class ScenesController
     public static void ShowThankYouScene()
     {
         SceneManager.LoadScene(THANKYOU_SCENE);
+    }
+
+    public static void ShowAchievementsScene()
+    {
+        SceneManager.LoadScene(ACHIEVEMENTS_SCENE);
     }
 }

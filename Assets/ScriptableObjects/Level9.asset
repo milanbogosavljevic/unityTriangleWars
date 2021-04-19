@@ -15,7 +15,7 @@ MonoBehaviour:
   numberOfEnemies: 2
   enemyLineMoveSpeed: 0.22
   playerAmmo: 8
-  hasHelpItems: 0
+  hasHelpItems: 1
   hasMeteors: 0
   playerAmmoToIncrease: 3
   pauseLineFor: 3

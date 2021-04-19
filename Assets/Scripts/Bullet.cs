@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
             else
             {
                 StopMoving();
+                GameController.PlayerMissedEnemy();
             }
         }
     }

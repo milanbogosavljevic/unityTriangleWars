@@ -14,14 +14,16 @@ public class WelcomeSceneButtonsController : MonoBehaviour
 
     void Start()
     {
-        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        float soundAlpha = _soundController.IsSoundOn() ? 1 : 0.3f;
+        //float soundAlpha = _soundController.IsSoundOn() ? 1 : 0.3f;
+        float soundAlpha = true ? 1 : 0.3f;
         Color soundColor = SoundButton.image.color;
         soundColor.a = soundAlpha;
         SoundButton.image.color = soundColor;
 
-        float musicAlpha = _soundController.IsMusicOn() ? 1 : 0.3f;
+        //float musicAlpha = _soundController.IsMusicOn() ? 1 : 0.3f;
+        float musicAlpha = true ? 1 : 0.3f;
         Color musicColor = MusicButton.image.color;
         musicColor.a = musicAlpha;
         MusicButton.image.color = musicColor;
@@ -44,15 +46,20 @@ public class WelcomeSceneButtonsController : MonoBehaviour
 
     public void SoundButtonClickHandler()
     {
-        _soundController.ToggleSound();
+        //_soundController.ToggleSound();
         float a = _soundController.IsSoundOn() ? 1 : 0.3f;
         LeanTween.alpha(SoundButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
     }
 
     public void MusicButtonClickHandler()
     {
-        _soundController.ToggleMusic();
+        //_soundController.ToggleMusic();
         float a = _soundController.IsMusicOn() ? 1 : 0.3f;
         LeanTween.alpha(MusicButton.image.rectTransform, a, 0.5f).setEaseInOutQuint();
+    }
+
+    public void AchievementsButtonClickHandler()
+    {
+        ScenesController.ShowAchievementsScene();
     }
 }
