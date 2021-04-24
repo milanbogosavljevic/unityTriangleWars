@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Achievemnts
+  m_text: Achievements
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c12f7cf95a5cc2d439becb698d7d4291, type: 2}
   m_sharedMaterial: {fileID: 5521292529174484118, guid: c12f7cf95a5cc2d439becb698d7d4291, type: 2}
