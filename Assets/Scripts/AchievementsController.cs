@@ -9,6 +9,14 @@ public class AchievementsController : MonoBehaviour
 
     [SerializeField] GameObject[] HitsInRowAchievements;
     [SerializeField] TextMeshProUGUI[] HitsInRowTextValues;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ScenesController.ShowHomeLevel();
+        }
+    }
     void Start()
     {
         SetHitsInRowAchievements();
