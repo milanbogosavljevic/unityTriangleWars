@@ -10,6 +10,9 @@ public class AchievementsController : MonoBehaviour
     [SerializeField] GameObject[] HitsInRowAchievements;
     [SerializeField] TextMeshProUGUI[] HitsInRowTextValues;
 
+    [SerializeField] GameObject[] EnemiesKilledAchievements;
+    [SerializeField] TextMeshProUGUI[] EnemiesKilledTextValues;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -20,6 +23,7 @@ public class AchievementsController : MonoBehaviour
     void Start()
     {
         SetHitsInRowAchievements();
+        SetEnemiesKilledAchievements();
     }
 
     private void SetHitsInRowAchievements()
@@ -33,6 +37,20 @@ public class AchievementsController : MonoBehaviour
             achievement.color =  new Color(1f,1f,1f,achievementAlpha);
 
             HitsInRowTextValues[i].text = achievementsValues[i].ToString();
+        }
+    }
+
+    private void SetEnemiesKilledAchievements()
+    {
+        bool[] achievementsCollected = Achivements.GetEnemiesKilledAchievementsCollected();
+        int[] achievementsValues = Achivements.GetEnemiesKilledAchievementsValues();
+        for(int i = 0; i < EnemiesKilledAchievements.Length; i++)
+        {
+            Image achievement = EnemiesKilledAchievements[i].GetComponent<Image>();
+            float achievementAlpha = achievementsCollected[i] ? 1f : 0.3f;
+            achievement.color =  new Color(1f,1f,1f,achievementAlpha);
+
+            EnemiesKilledTextValues[i].text = achievementsValues[i].ToString();
         }
     }
 }

@@ -16,5 +16,6 @@ public class StatsSetter : MonoBehaviour
         Accuracy.text = "ACCURACY: " + PlayerPrefs.GetFloat("Accuracy", 0f) + "%";
 
         Achivements.RestoreHitMedalsStatus();
+        Achivements.RestoreEnemiesKilledMedalsStatus();
     }
 }
