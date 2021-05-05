@@ -16,9 +16,9 @@ public static class Achivements
     private static bool _bronzeEnemiesKilledMedalCollected = false;
     private static bool _silverEnemiesKilledMedalCollected = false;
     private static bool _goldEnemiesKilledMedalCollected = false;
-    private static int BRONZE_MEDAL_ENEMIES_KILLED = 40;//150
-    private static int SILVER_MEDAL_ENEMIES_KILLED = 50;//400
-    private static int GOLD_MEDAL_ENEMIES_KILLED = 60;//950
+    private static int BRONZE_MEDAL_ENEMIES_KILLED = 150;
+    private static int SILVER_MEDAL_ENEMIES_KILLED = 400;
+    private static int GOLD_MEDAL_ENEMIES_KILLED = 950;
 
     //PlayerPrefs.GetFloat("EnemiesHit", 0); OVAKO DOCI DO CIFRE
     // ZA SAD SU SAMO SETOVANE KONSTANTE
