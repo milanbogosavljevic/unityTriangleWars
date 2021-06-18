@@ -18,6 +18,8 @@ public class SoundController : MonoBehaviour
 
     private bool _musicIsOn;
     private bool _soundIsOn;
+    private SaveLoadSystem _saveLoadSystem;
+    private GameData _data;
 
     private void Start()
     {
@@ -29,37 +31,23 @@ public class SoundController : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (PlayerPrefs.HasKey("MusicPlay"))
-        {
-            _musicIsOn = PlayerPrefs.GetString("MusicPlay") == "on";
-        }
-        else
-        {
-            _musicIsOn = true;
-        }
+        _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        _data = _saveLoadSystem.GetGameData();
 
-        if (PlayerPrefs.HasKey("SoundPlay"))
-        {
-            _soundIsOn = PlayerPrefs.GetString("SoundPlay") == "on";
-        }
-        else
-        {
-            _soundIsOn = true;
-        }
+        _musicIsOn = _data.musicIsOn;
+        _soundIsOn = _data.soundIsOn;
     }
 
     public void ToggleSound()
     {
         _soundIsOn = !_soundIsOn;
-        string onOff = _soundIsOn ? "on" : "off";
-        PlayerPrefs.SetString("SoundPlay", onOff);
+        _saveLoadSystem.SaveSoundState(_soundIsOn);
     }
 
     public void ToggleMusic()
     {
         _musicIsOn = !_musicIsOn;
-        string onOff = _musicIsOn ? "on" : "off";
-        PlayerPrefs.SetString("MusicPlay", onOff);
+        _saveLoadSystem.SaveMusicState(_musicIsOn);
     }
 
     public bool IsMusicOn()

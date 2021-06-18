@@ -7,15 +7,20 @@ public class StatsSetter : MonoBehaviour
     [SerializeField] TextMeshProUGUI Fired;
     [SerializeField] TextMeshProUGUI Hit;
     [SerializeField] TextMeshProUGUI Accuracy;
+    private SaveLoadSystem _saveLoadSystem;
 
     void Start()
     {
-        Highscore.text = "HIGHSCORE: " + PlayerPrefs.GetInt("HighScore", 0);
-        Fired.text = "BULLETS FIRED: " + PlayerPrefs.GetFloat("BulletsFired", 0);
-        Hit.text = "ENEMIES HIT: " + PlayerPrefs.GetFloat("EnemiesHit", 0);
-        Accuracy.text = "ACCURACY: " + PlayerPrefs.GetFloat("Accuracy", 0f) + "%";
+        _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        GameData _data = _saveLoadSystem.GetGameData();
 
-        Achivements.RestoreHitMedalsStatus();
-        Achivements.RestoreEnemiesKilledMedalsStatus();
+        Highscore.text = "HIGHSCORE: " + _data.highScore;
+        Fired.text = "BULLETS FIRED: " + _data.bulletsFired;
+        Hit.text = "ENEMIES HIT: " + _data.enemiesHit;
+        Accuracy.text = "ACCURACY: " + _data.accuracy + "%";
+
+        Achivements.RestoreMedals();
+        //Achivements.RestoreHitMedalsStatus();
+        //Achivements.RestoreEnemiesKilledMedalsStatus();
     }
 }

@@ -50,7 +50,9 @@ public class IntroController : MonoBehaviour
     IEnumerator ShowGame()
     {
         yield return new WaitForSeconds(3);
-        if(PlayerPrefs.GetString("showInfo") == "no")
+        SaveLoadSystem _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        GameData _data = _saveLoadSystem.GetGameData();
+        if(_data.dontShowInfo == true)
         {
             ScenesController.ShowHomeLevel();
         }

@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   numberOfEnemies: 1
-  enemyLineMoveSpeed: 0.1
+  enemyLineMoveSpeed: 0.2
   playerAmmo: 8
   hasHelpItems: 1
+  hasMeteors: 0
   playerAmmoToIncrease: 3
   pauseLineFor: 4
   pauseEnemiesFor: 2
-  numberOfMeteors: 0
   meteorsReleaseInterval: 0
   meteorsMoveSpeed: 0
+  meteorsMoveLineBy: 0
+  meteorPoints: 0
   releaseHelpItemIntervalFromTo: 0a0000000f000000
   enemiesYPositionFromTop:
   - 1.5

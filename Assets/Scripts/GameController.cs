@@ -56,26 +56,26 @@ public class GameController : MonoBehaviour
         }
 
         // ONLY DEV VERSION
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            MovePlayer("left");
-        }
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            StopPlayer("left");
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            MovePlayer("right");
-        }
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            StopPlayer("right");
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            PlayerFired();
-        }
+        // if(Input.GetKeyDown(KeyCode.A))
+        // {
+        //     MovePlayer("left");
+        // }
+        // if(Input.GetKeyUp(KeyCode.A))
+        // {
+        //     StopPlayer("left");
+        // }
+        // if(Input.GetKeyDown(KeyCode.D))
+        // {
+        //     MovePlayer("right");
+        // }
+        // if(Input.GetKeyUp(KeyCode.D))
+        // {
+        //     StopPlayer("right");
+        // }
+        // if(Input.GetKeyDown(KeyCode.S))
+        // {
+        //     PlayerFired();
+        // }
         // ONLY DEV VERSION
     }
 
@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
         GameoverMenu.transform.localScale = new Vector3(0,0,0);
         GameoverMenu.SetActive(false);
 
-        //_soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
+        _soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();// problem kada se ne krene od pocetne scene
         _maxRight = GameBoundaries.RightBoundary;
         _maxLeft = GameBoundaries.LeftBoundary;
         _maxUp = GameBoundaries.UpBoundary;
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour
 
         //_achievemnts = new Achivements();
 
-        //_soundController.PlayBackgroundMusic();
+        _soundController.PlayBackgroundMusic();
     }
 
     private void SetSceneForCurrentLevel()
@@ -276,14 +276,14 @@ public class GameController : MonoBehaviour
         //GameoverMenu.transform.localScale = new Vector3(1, 1, 1);
         ShootButton.interactable = false;
         Player.ShowExplosion();
-        //_soundController.PlayPlayerExplosionSound();
+        _soundController.PlayPlayerExplosionSound();
         _stats.SaveStats();
         _stats.CheckHighscore(_score);
     }
 
     private void LevelPassed()
     {
-        //_soundController.PlayLevelPassedSound();
+        _soundController.PlayLevelPassedSound();
         ClearEnemies();
         ShowLevelPassedAnimation();
         _stats.SaveStats();
@@ -352,7 +352,7 @@ public class GameController : MonoBehaviour
     {
         if (Player.PlayerCanFire())
         {
-            //_soundController.PlayShootSound();
+            _soundController.PlayShootSound();
             Player.Fire();
             _stats.PlayerFired();
         }
@@ -394,7 +394,7 @@ public class GameController : MonoBehaviour
         //_achievemnts.CountHit();
         Achivements.CountHit();
         _cameraController.ShakeCamera();
-        //_soundController.PlayEnemyHitSound();
+        _soundController.PlayEnemyHitSound();
 
         Vector3 ghostPosition = PlayerGhostLine.transform.position;
         float currentGhostPosition = ghostPosition.x;
@@ -436,7 +436,7 @@ public class GameController : MonoBehaviour
     public void EnemyHitsPlayer(float moveLineBy)
     {
         _cameraController.ShakeCamera();
-        //_soundController.PlayPlayerHitSound();
+        _soundController.PlayPlayerHitSound();
 
         Vector3 playerLinePosition = PlayerLine.transform.position;
         float linePositionX = playerLinePosition.x;
@@ -462,7 +462,7 @@ public class GameController : MonoBehaviour
     {
         _stats.SaveStats();
         _stats.CheckHighscore(_score);
-        //_soundController.StopBackgroundMusic();
+        _soundController.StopBackgroundMusic();
         Time.timeScale = 1;
         Menu.SetActive(false);
         ScenesController.ShowHomeLevel();
@@ -479,13 +479,13 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedAmmo()
     {
-        //_soundController.PlayReloadSound();
+        _soundController.PlayReloadSound();
         Player.IncreaseAmmo(_ammoToIncrease);
     }
 
     private void PlayerCollectedPauseLine()
     {
-        //_soundController.PlayItemCollectedSound();
+        _soundController.PlayItemCollectedSound();
         StopCoroutine(PauseEnemyLineCoroutine);
         PauseEnemyLineCoroutine = PauseEnemyLine();
         StartCoroutine(PauseEnemyLineCoroutine);
@@ -493,7 +493,7 @@ public class GameController : MonoBehaviour
 
     private void PlayerCollectedPauseEnemies()
     {
-        //_soundController.PlayItemCollectedSound();
+        _soundController.PlayItemCollectedSound();
         StartCoroutine(PauseAndReleaseEnemiesMove());
     }
 

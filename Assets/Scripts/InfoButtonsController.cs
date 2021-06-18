@@ -8,13 +8,12 @@ public class InfoButtonsController : MonoBehaviour
     [SerializeField] Toggle Toggle;
     public void CloseInfo()
     {
-        Debug.Log("click");
         ScenesController.ShowHomeLevel();
     }
 
     public void DontShow()
     {
-        string show = Toggle.isOn ? "no" : "yes";
-        PlayerPrefs.SetString("showInfo", show);
+        SaveLoadSystem _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        _saveLoadSystem.SaveDontShowInfo(Toggle.isOn);
     }
 }

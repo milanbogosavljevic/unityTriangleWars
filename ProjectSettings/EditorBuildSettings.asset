@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 53b19d01711279c4b9042f58e1b3920d
   - enabled: 1
     path: Assets/Scenes/Info.unity
-    guid: 30d6a0238c8e7b04bb7e589e9a615459
+    guid: a9fb4ef4ebae2ec44afd7d72b6f8ca9d
   - enabled: 1
     path: Assets/Scenes/Welcome.unity
     guid: f7c2dbb550c4cef4eabcb66e06cf72f2
@@ -22,5 +22,5 @@ EditorBuildSettings:
     guid: 9094a1697b3a4f8439476861dd33378e
   - enabled: 1
     path: Assets/Scenes/Achievements.unity
-    guid: 97c2c24a965e4004ab97a903cc23ddd1
+    guid: 14cf8bc56ba7c9e4b98a33ff46d61f8e
   m_configObjects: {}

@@ -8,22 +8,25 @@ public class Stats
     private float _enemiesHit;
     private float _accuracy;
     private int _highScore;
+    private SaveLoadSystem _saveLoadSystem;
+    GameData _data;
 
     public void RestoreStats()
     {
-        _bulletsFired = PlayerPrefs.GetFloat("BulletsFired", 0);
-        _enemiesHit = PlayerPrefs.GetFloat("EnemiesHit", 0);
-        _accuracy = PlayerPrefs.GetFloat("Accuracy", 0f);
-        _highScore = PlayerPrefs.GetInt("HighScore", 0);
+        _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        _data = _saveLoadSystem.GetGameData();
+
+        _highScore = _data.highScore;
+        _bulletsFired = _data.bulletsFired;
+        _enemiesHit = _data.enemiesHit;
+        _accuracy = _data.accuracy;
+    
     }
 
     public void SaveStats()
     {
         _accuracy = (float)System.Math.Round(_enemiesHit / (_bulletsFired / 100f), 2);
-
-        PlayerPrefs.SetFloat("BulletsFired", _bulletsFired);
-        PlayerPrefs.SetFloat("EnemiesHit", _enemiesHit);
-        PlayerPrefs.SetFloat("Accuracy", _accuracy);
+        _saveLoadSystem.SaveStats(_bulletsFired, _enemiesHit, _accuracy);
     }
 
     public void CheckHighscore(int highscore)
@@ -31,7 +34,7 @@ public class Stats
         if(highscore > _highScore)
         {
             _highScore = highscore;
-            PlayerPrefs.SetInt("HighScore", _highScore);
+            _saveLoadSystem.SaveScore(highscore);
         }
     }
 

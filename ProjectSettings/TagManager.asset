@@ -12,6 +12,7 @@ TagManager:
   - SoundController
   - helpItem
   - meteor
+  - SaveLoadSystem
   layers:
   - Default
   - TransparentFX

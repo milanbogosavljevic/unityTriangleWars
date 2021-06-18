@@ -16,12 +16,11 @@ public static class Achivements
     private static bool _bronzeEnemiesKilledMedalCollected = false;
     private static bool _silverEnemiesKilledMedalCollected = false;
     private static bool _goldEnemiesKilledMedalCollected = false;
-    private static int BRONZE_MEDAL_ENEMIES_KILLED = 150;
+    private static int BRONZE_MEDAL_ENEMIES_KILLED = 8;
     private static int SILVER_MEDAL_ENEMIES_KILLED = 400;
     private static int GOLD_MEDAL_ENEMIES_KILLED = 950;
-
-    //PlayerPrefs.GetFloat("EnemiesHit", 0); OVAKO DOCI DO CIFRE
-    // ZA SAD SU SAMO SETOVANE KONSTANTE
+    private static SaveLoadSystem _saveLoadSystem;
+    private static GameData _data;
 
     // void Awake()
     // {
@@ -29,18 +28,26 @@ public static class Achivements
     //     RestoreHitMedalsStatus();
     // }
 
+    public static void RestoreMedals()
+    {
+        _saveLoadSystem = GameObject.FindWithTag("SaveLoadSystem").GetComponent<SaveLoadSystem>();
+        _data = _saveLoadSystem.GetGameData();
+        RestoreHitMedalsStatus();
+        RestoreEnemiesKilledMedalsStatus();
+    }
+
     public static void RestoreHitMedalsStatus()
     {
-        _bronzeHitsInRowMedalCollected = PlayerPrefs.HasKey("BronzeHitsInRowMedal");
-        _silverHitsInRowMedalCollected = PlayerPrefs.HasKey("SilverHitsInRowMedal");
-        _goldHitsInRowMedalCollected = PlayerPrefs.HasKey("GoldHitsInRowMedal");
+        _bronzeHitsInRowMedalCollected = _data.bronzeHitsInRow;
+        _silverHitsInRowMedalCollected = _data.silverHitsInRow;
+        _goldHitsInRowMedalCollected = _data.goldHitsInRow;
     }
 
     public static void RestoreEnemiesKilledMedalsStatus()
     {
-        _bronzeEnemiesKilledMedalCollected = PlayerPrefs.HasKey("BronzeEnemiesKilledMedal");
-        _silverEnemiesKilledMedalCollected = PlayerPrefs.HasKey("SilverEnemiesKilledMedal");
-        _goldEnemiesKilledMedalCollected = PlayerPrefs.HasKey("GoldEnemiesKilledMedal");
+        _bronzeEnemiesKilledMedalCollected = _data.bronzeEnemiesKilled;
+        _silverEnemiesKilledMedalCollected = _data.silverEnemiesKilled;
+        _goldEnemiesKilledMedalCollected = _data.goldEnemiesKilled;
         CheckEnemiesKilledMedals();
     }
 
@@ -68,7 +75,7 @@ public static class Achivements
             if(!_bronzeHitsInRowMedalCollected)
             {
                 _bronzeHitsInRowMedalCollected = true;
-                StoreAchievemt("BronzeHitsInRowMedal");
+                _saveLoadSystem.SaveAchievement("bronzeHitsInRow");
             }
         }
         if(_hitCounter >= SILVER_MEDAL_HITS_IN_ROW)
@@ -76,7 +83,7 @@ public static class Achivements
             if(!_silverHitsInRowMedalCollected)
             {
                 _silverHitsInRowMedalCollected = true;
-                StoreAchievemt("SilverHitsInRowMedal");
+                _saveLoadSystem.SaveAchievement("silverHitsInRow");
             }
         }
         if(_hitCounter >= GOLD_MEDAL_HITS_IN_ROW)
@@ -84,20 +91,21 @@ public static class Achivements
             if(!_goldHitsInRowMedalCollected)
             {
                 _goldHitsInRowMedalCollected = true;
-                StoreAchievemt("GoldHitsInRowMedal");
+                _saveLoadSystem.SaveAchievement("goldHitsInRow");
             }
         }
     }
 
     public static void CheckEnemiesKilledMedals()
     {
-        float enemiesKilled = PlayerPrefs.GetFloat("EnemiesHit", 0);
+        GameData _data = _saveLoadSystem.GetGameData();
+        float enemiesKilled = _data.enemiesHit;
         if(enemiesKilled >= BRONZE_MEDAL_ENEMIES_KILLED)
         {
             if(!_bronzeEnemiesKilledMedalCollected)
             {
                 _bronzeEnemiesKilledMedalCollected = true;
-                StoreAchievemt("BronzeEnemiesKilledMedal");
+                _saveLoadSystem.SaveAchievement("bronzeEnemiesKilled");
             }
         }
         if(enemiesKilled >= SILVER_MEDAL_ENEMIES_KILLED)
@@ -105,7 +113,7 @@ public static class Achivements
             if(!_silverEnemiesKilledMedalCollected)
             {
                 _silverEnemiesKilledMedalCollected = true;
-                StoreAchievemt("SilverEnemiesKilledMedal");
+                _saveLoadSystem.SaveAchievement("silverEnemiesKilled");
             }
         }
         if(enemiesKilled >= GOLD_MEDAL_ENEMIES_KILLED)
@@ -113,15 +121,9 @@ public static class Achivements
             if(!_goldEnemiesKilledMedalCollected)
             {
                 _goldEnemiesKilledMedalCollected = true;
-                StoreAchievemt("GoldEnemiesKilledMedal");
+                _saveLoadSystem.SaveAchievement("goldEnemiesKilled");
             }
         }
-    }
-
-    private static void StoreAchievemt(string AchievemtCollected)
-    {
-        Debug.Log(AchievemtCollected);
-        PlayerPrefs.SetInt(AchievemtCollected, 1);
     }
 
     public static bool[] GetHitsInRowAchievementsCollected()
