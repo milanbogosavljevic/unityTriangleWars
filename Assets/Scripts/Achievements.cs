@@ -16,7 +16,7 @@ public static class Achivements
     private static bool _bronzeEnemiesKilledMedalCollected = false;
     private static bool _silverEnemiesKilledMedalCollected = false;
     private static bool _goldEnemiesKilledMedalCollected = false;
-    private static int BRONZE_MEDAL_ENEMIES_KILLED = 8;
+    private static int BRONZE_MEDAL_ENEMIES_KILLED = 150;
     private static int SILVER_MEDAL_ENEMIES_KILLED = 400;
     private static int GOLD_MEDAL_ENEMIES_KILLED = 950;
     private static SaveLoadSystem _saveLoadSystem;
